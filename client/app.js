@@ -1,22 +1,26 @@
-var ReactDOM = require('react-dom');
 var React = require('react');
+var ReactDOM = require('react-dom');
 
 var Router = require('react-router').Router;
 var Route = require('react-router').Route;
 var browserHistory = require('react-router').browserHistory;
 var IndexRoute = require('react-router').IndexRoute;
 
-var App = require('./components/app');
-var Audience = require('./components/audience');
-var Speaker = require('./components/speaker');
-var Board = require('./components/board');
+var Main = require('./components/main');
+var Example = require('./components/example');
+var Example2 = require('./components/example2');
 var Whoops404 = require('./components/whoops404');
 
+var reactContainer = document.getElementById('react-container');
 
-ReactDOM.render((
-	<div>
-		<p>Hello from React</p>
-		<p>So glad to be here</p>
-		
-	</div>
-), document.getElementById('react-container'));
+if (reactContainer) {
+	ReactDOM.render((
+		<Router history={browserHistory}>
+			<Route path='/' component={Main}>
+				<IndexRoute component={Example} />
+				<Route path='example2' component={Example2} />
+				<Route path='*' component={Whoops404} />
+			</Route>
+		</Router>
+	), document.getElementById('react-container'));
+}

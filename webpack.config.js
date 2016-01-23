@@ -1,18 +1,23 @@
+if (process.env.NODE_ENV === 'production') {
+	var env = 'production';
+} else {
+	env = 'development';
+}
+
+var source = __dirname + '/client/app.js';
+var dest = __dirname + '/builds/' + env;
+
 module.exports = {
-	entry: './client/app.js',
+	entry: source,
 	output: {
-		path: __dirname + '/build/dev/',
+		path: dest,
 		filename: 'bundle.js'
 	},
 	module: {
 		loaders: [
 			{
-				test: /\.css$/,
-				loader: 'style!css'
-			},
-			{
 				test: /\.js$/,
-				exclude: /(node_modules|server.js)/,
+				exclude: /(node_modules|server|server.js)/,
 				loader: 'babel',
 				query: {
 					presets: ['es2015', 'react']

@@ -1,0 +1,61 @@
+html {
+	height: 100%;
+	width: 100%;
+	background-color: lightgrey;
+}
+
+body {
+	font: $mainFont;
+	background: $backgroundColor;
+	color: $typeDefault;
+	width: 100%;
+	max-width: 1024px;
+	margin: 0 auto;
+	min-height: 100%;
+	overflow: scroll;
+	font-weight: 400;
+	font-family: $fontfamily;
+}
+
+strong {
+	font-weight: $bold;
+}
+
+.notification {
+	position: fixed;
+	z-index: 100;
+	width: 80%;
+	left: 10%;
+	top: 35%;
+	border: 1px solid $lightgrey;
+	background-color: rgba(249, 249, 249, 0.95);
+	box-shadow: rgba(0, 0, 0, 0.3) 0 1px 2px 0;
+	border-radius: 4px;
+	padding: 7px;
+	text-align: center;
+	button {
+		margin-top: 15px;
+	}
+}
+
+#hbs_content {
+	margin-top: 15px;
+	margin-left: 15px;
+}
+
+#main {
+	height: 100%;
+	width: 100%;
+	max-width: 1024px;
+	margin-top: 15px;
+	/* iPad Landscape */
+}
+
+#react-container {
+	min-height: 100px;
+	margin-top: 15px;
+}
+
+.hide {
+	display: none;
+}

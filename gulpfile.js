@@ -1,51 +1,78 @@
-var gulp 					= require('gulp');
-var webpack 			= require('webpack-stream');
+var gulp = require('gulp');
+var webpack = require('webpack-stream');
 
-var compass 			= require('gulp-compass');
-var util 					= require('gulp-util');
-var postcss 			= require('gulp-postcss');
-var livereload 		= require('gulp-livereload');
-var autoprefixer 	= require('autoprefixer');
+var util = require('gulp-util');
+var postcss = require('gulp-postcss');
+var precss = require('precss');
+var livereload = require('gulp-livereload');
+var nodemon = require('gulp-nodemon');
+var autoprefixer = require('autoprefixer');
 
-var source = './client/';
-var dest = './builds/dev/';
+// Take it from env; 'export NODE_ENV=development' in terminal
+if (process.env.NODE_ENV === 'production') {
+	var env = 'production';
+} else {
+	env = 'development';
+}
 
-gulp.task('html', function() {
+if (env === 'development') {
+	var source = __dirname + '/client/';
+	var dest = __dirname + '/builds/development/';
+} else {
+	source = __dirname + '/client/';
+	dest = __dirname + '/builds/production/';
+}
+console.log('GULP: ' + env + ' environment, build folder ' + dest + ', source folder ' + source);
+
+gulp.task('hbs', function() {
 	return gulp
-		.src(source + '*.html')
-		.on('error', util.log)
-		.pipe(gulp.dest(dest))
+		.src('**/*.hbs')
 		.pipe(livereload());
+});
+
+gulp.task('fonts', function(){
+	return gulp.src(source + '/fonts/*.*')
+	.pipe(gulp.dest(dest+'/fonts'))
+	.on('error', util.log);
+});
+
+gulp.task('images', function(){
+	return gulp.src(source + '/images/*.*')
+	.pipe(gulp.dest(dest + '/images'))
+	.on('error', util.log);
 });
 
 gulp.task('js', function() {
 	return gulp
 		.src(source + 'app.js')
-		.pipe(webpack(require('./webpack.config.js')))
+		.pipe(webpack(require(__dirname + '/webpack.config.js')))
 		.pipe(gulp.dest(dest))
 		.pipe(livereload());
 });
 
 gulp.task('css', function() {
 	return gulp
-		.src(source + 'sass/style.scss')
-		.pipe(compass({
-				sass: source + 'sass',
-				css: dest,
-				style: 'compact',
-				require: ['susy', 'breakpoint']
-			}))
-		.pipe(postcss([autoprefixer()]))
+		.src(source + 'css/style.css')
+		.pipe(postcss([precss(), autoprefixer()]))
+		.on('error', util.log)
 		.pipe(gulp.dest(dest))
 		.pipe(livereload());
 });
 
-gulp.task('watch', function() {
-	livereload.listen();
-	gulp.watch(source + 'sass/**/*.scss', ['css']);
-	gulp.watch(['**/*.html', '**/*.hbs'], ['html']);
-	gulp.watch([source + '**/*.js', source + '**/*.jsx'], ['js']);
-	// gulp.watch(['client/images/*.*'], ['images']);
+gulp.task('server', function(){
+	nodemon({
+		script: 'server.js',
+		watch: ['server/*.js', 'server.js'],
+		ignoreRoot: ['.git', 'node_modules', 'client', '.sass-cache'],
+		ignore: ['gulpfile.js', 'webpack.config.js']
+	});
 });
 
-gulp.task('default', ['html', 'js', 'css', 'watch']);
+gulp.task('watch', function() {
+	livereload.listen();
+	gulp.watch(source + 'css/**/*.css', ['css']);
+	gulp.watch(['**/*.hbs'], ['hbs']);
+	gulp.watch([source + '**/*.js', source + '**/*.jsx'], ['js']);
+});
+
+gulp.task('default', ['hbs', 'js', 'css', 'fonts', 'images', 'watch', 'server']);

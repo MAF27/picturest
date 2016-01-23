@@ -1,0 +1,28 @@
+<section class="profile contheight">
+	<div class="content">
+
+		<h3>Change profile</h3>
+		<form action="/profile" method="post">
+			<div>
+				<input autofocus name="firstName" placeholder="First Name" required type="text" value="{{input.firstName}}"/>
+			</div>
+			<div>
+				<input name="lastName" placeholder="Last Name" required type="text" value="{{input.lastName}}"/>
+			</div>
+			<p>
+				Fill or change
+			</p>
+			<div>
+				<input name="city" placeholder="City" required type="text" value="{{input.city}}"/>
+			</div>
+			<div>
+				<input name="state" placeholder="State" required type="text" value="{{input.state}}"/>
+			</div>
+			<div>
+				<input type="submit" value="Save"/>
+			</div>
+			<span class="error-msg">{{error}}</span>
+		</form>
+	</div>
+
+</section>

@@ -1,0 +1,16 @@
+<section class="login contheight">
+	<div class="content">
+		<form action="/login" method="post" class="uk-form">
+			<input autofocus="true" name="username" placeholder="Username" type="text" autofocus="true"/>
+			<input name="password" placeholder="Password" type="password"/>
+			<button class="uk-button uk-button-success" type="submit" value="Log In">Login</button>
+		</form>
+		<!-- {{#if flash.error}}
+			<div class="error">Apologies, there was an error:&nbsp;{{flash.error}}<br></div>
+		{{/if}} -->
+		<p>Don't have an account?
+			<a href=/signup>
+				Register as a new user</a>
+		</p>
+	</div>
+</section>
