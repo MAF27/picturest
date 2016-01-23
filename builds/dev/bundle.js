@@ -61,15 +61,17 @@
 	var Whoops404 = __webpack_require__(273);
 
 	ReactDOM.render(React.createElement(
-		Router,
-		{ history: browserHistory },
+		'div',
+		null,
 		React.createElement(
-			Route,
-			{ path: '/', component: App },
-			React.createElement(IndexRoute, { component: Audience }),
-			React.createElement(Route, { path: 'speaker', component: Speaker }),
-			React.createElement(Route, { path: 'board', component: Board }),
-			React.createElement(Route, { path: '*', component: Whoops404 })
+			'p',
+			null,
+			'Hello from React'
+		),
+		React.createElement(
+			'p',
+			null,
+			'So glad to be here'
 		)
 	), document.getElementById('react-container'));
 

@@ -14,12 +14,9 @@ var Whoops404 = require('./components/whoops404');
 
 
 ReactDOM.render((
-	<Router history={browserHistory}>
-		<Route path='/' component={App}>
-			<IndexRoute component={Audience} />
-			<Route path='speaker' component={Speaker} />
-			<Route path='board' component={Board} />
-			<Route path='*' component={Whoops404} />
-		</Route>
-	</Router>
+	<div>
+		<p>Hello from React</p>
+		<p>So glad to be here</p>
+		
+	</div>
 ), document.getElementById('react-container'));
