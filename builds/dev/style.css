@@ -1,0 +1,33 @@
+/*
+//Compass imports
+@import 'compass';
+@import 'compass/reset';
+@import 'compass/css3/box-shadow';
+@import 'compass/css3/text-shadow';
+@import 'compass/css3/filter';
+@import 'compass/css3/flexbox';
+@import 'compass/css3/transition';
+
+//External Libraries
+@import 'susy';
+@import 'breakpoint';
+
+//Core Partial
+@import 'variables';
+@import 'mixins';
+@import 'base';
+
+//Import Modules
+@import 'modules/header';
+@import 'modules/nav';
+@import 'modules/gallery';
+
+@import 'modules/login';
+@import 'modules/signup';
+@import 'modules/profile';
+
+@import 'modules/allmovies';
+@import 'modules/mymovies';
+@import 'modules/mytrades';
+@import 'modules/addmovie';
+*/

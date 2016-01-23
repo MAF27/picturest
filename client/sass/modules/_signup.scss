@@ -1,0 +1,35 @@
+section.signup {
+	@include backImage($image: 'images/background-blur.jpg', $bgPos: top center);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+
+	.content {
+		// @include container(90%);
+		color: $light;
+		font-size: 1.2em;
+
+		form {
+			input {
+				height: 40px;
+				width: 90%;
+				border-radius: 5px;
+				margin: 10px 0;
+				font-size: 0.9em;
+				outline: none;
+				padding: 5px;
+			}
+
+			input[type='submit'] {
+				background-color: $gold;
+				color: $light;
+				height: 50px;
+				margin-top: 20px;
+			}
+//input submit
+		}
+// form
+	}
+// div.content
+}

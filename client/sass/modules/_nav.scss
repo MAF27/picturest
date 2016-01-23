@@ -1,0 +1,57 @@
+#nav {
+	@include clearfix;
+	width: 100%;
+	max-width: 1024px; // iPad Landscape
+	padding: 5px;
+	z-index: 100;
+	position: fixed;
+	bottom: 0;
+	background-color: $light;
+
+	.navbar {
+		@include container;
+		border-radius: 5px;
+
+		ul {
+			li {
+				border: 1px solid $iosblue;
+				background-color: $light;
+				font-weight: 400;
+				@include span(4);
+				text-align: center;
+				padding: 5px 0;
+				// float: left;
+				a:visited,
+				a:link {
+					display: inline-block;
+					width: 100%;
+					text-decoration: none;
+					color: $iosblue;
+				}
+
+				&:hover {
+					background-color: $navHover;
+					color: $blue;
+				}
+
+				&.active {
+					background-color: $iosblue;
+
+					a {
+						color: $light;
+					}
+				}
+
+				&:first-child {
+					border-radius: 5px 0 0 5px;
+					border-right: 0;
+				}
+
+				&:last-child {
+					border-radius: 0 5px 5px 0;
+					border-left: 0;
+				}
+			}
+		}
+	}
+}
