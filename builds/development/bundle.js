@@ -55,9 +55,10 @@
 	var IndexRoute = __webpack_require__(159).IndexRoute;
 
 	var Main = __webpack_require__(217);
-	var Example = __webpack_require__(219);
-	var Example2 = __webpack_require__(220);
-	var Whoops404 = __webpack_require__(221);
+	var Gallery = __webpack_require__(219);
+	var Example = __webpack_require__(220);
+	var Example2 = __webpack_require__(221);
+	var Whoops404 = __webpack_require__(222);
 
 	var reactContainer = document.getElementById('react-container');
 
@@ -70,6 +71,7 @@
 				{ path: '/', component: Main },
 				React.createElement(IndexRoute, { component: Example }),
 				React.createElement(Route, { path: 'example2', component: Example2 }),
+				React.createElement(Route, { path: 'gallery', component: Gallery }),
 				React.createElement(Route, { path: '*', component: Whoops404 })
 			)
 		), document.getElementById('react-container'));
@@ -24705,6 +24707,66 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
+
+	var g = [{
+		src: 'http://lorempixel.com/400/200'
+	}, {
+		src: 'http://lorempixel.com/400/200'
+	}, {
+		src: 'http://lorempixel.com/400/200'
+	}, {
+		src: 'http://lorempixel.com/400/200'
+	}, {
+		src: 'http://lorempixel.com/400/200'
+	}, {
+		src: 'http://lorempixel.com/400/200'
+	}, {
+		src: 'http://lorempixel.com/400/200'
+	}, {
+		src: 'http://lorempixel.com/400/200'
+	}, {
+		src: 'http://lorempixel.com/400/200'
+	}, {
+		src: 'http://lorempixel.com/400/200'
+	}, {
+		src: 'http://lorempixel.com/400/200'
+	}, {
+		src: 'http://lorempixel.com/400/200'
+	}];
+
+	var Gallery = React.createClass({
+		displayName: 'Gallery',
+
+		render: function render() {
+			return React.createElement(
+				'div',
+				{ id: 'gallery', className: 'uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4', 'data-uk-grid': true },
+				[].concat(g).map(function (x) {
+					return React.createElement(
+						'div',
+						null,
+						React.createElement(
+							'div',
+							{ className: 'uk-panel' },
+							React.createElement('img', { src: x.src })
+						)
+					);
+				})
+			);
+		}
+	});
+
+	module.exports = Gallery;
+
+	// <div id='gallery' className='uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 tm-grid-colors tm-grid-heights' data-uk-grid >
+
+/***/ },
+/* 220 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
 	var Link = __webpack_require__(159).Link;
 
 	var Example = React.createClass({
@@ -24732,7 +24794,7 @@
 	module.exports = Example;
 
 /***/ },
-/* 220 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24765,7 +24827,7 @@
 	module.exports = Example2;
 
 /***/ },
-/* 221 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

@@ -5,6 +5,7 @@ var util = require('gulp-util');
 var postcss = require('gulp-postcss');
 var precss = require('precss');
 var livereload = require('gulp-livereload');
+var open = require('gulp-open');
 var nodemon = require('gulp-nodemon');
 var autoprefixer = require('autoprefixer');
 
@@ -75,4 +76,11 @@ gulp.task('watch', function() {
 	gulp.watch([source + '**/*.js', source + '**/*.jsx'], ['js']);
 });
 
-gulp.task('default', ['hbs', 'js', 'css', 'fonts', 'images', 'watch', 'server']);
+gulp.task('open', function(){
+	var port = process.env.PORT || 3000;
+	return gulp
+		.src('')
+		.pipe(open({app: '/Applications/Google\ Chrome.app', uri: 'http://localhost:' + port}));
+});
+
+gulp.task('default', ['hbs', 'js', 'css', 'fonts', 'images', 'watch', 'server', 'open']);
