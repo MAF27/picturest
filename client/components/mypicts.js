@@ -23,8 +23,6 @@ var MyPicts = React.createClass({
 		this.serverRequest.abort();
 	},
 	delete(id) {
-		console.log('Ha! You want to delete my beautiful ' + id);
-
 		// Find index -> TODO: to util
 		var newpicts = this.state.picts;
 		for (var i = 0; i < newpicts.length; i++) {
@@ -49,25 +47,22 @@ var MyPicts = React.createClass({
 		return null;
 	},
 	render: function() {
-		if (this.state.picts.length > 0) {
+		if (this.state.picts.length) {
 			return (
-			<div id = 'gallery' className = 'uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4' data-uk-grid="{gutter: 15}" >
-				{[...this.state.picts].map((x) =>
-					<div key={x._id}>
-					<div className='uk-panel-box'>
-						<div className="uk-panel-teaser">
-							<img src={x.pict.url} />
+				<div id='mypicts' data-uk-grid >
+
+					{[...this.state.picts].map((x) => <div>
+						<div className='uk-panel'>
+							<img src={x.pict.url}></img>
+							Huhu
 						</div>
-						<p>{x.pict.title}</p>
-						<a onClick={this.delete.bind(this, x._id)}>Delete</a>
-					</div>
-				</div>)
-			}
-			</div>
+					</div>)}
+
+				</div >
 			);
 			} else {
 				return (
-					<div>Loading ...</div>
+					<div>None ...</div>
 				);
 			}
 		}

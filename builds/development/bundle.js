@@ -71,7 +71,7 @@
 			React.createElement(
 				Route,
 				{ path: '/', component: Main },
-				React.createElement(IndexRoute, { component: Example }),
+				React.createElement(IndexRoute, { component: MyPicts }),
 				React.createElement(Route, { path: 'example2', component: Example2 }),
 				React.createElement(Route, { path: 'gallery', component: Gallery }),
 				React.createElement(Route, { path: 'add', component: AddForm }),
@@ -24681,24 +24681,7 @@
 			return { title: 'Sample Title' };
 		},
 		render: function render() {
-			return React.createElement(
-				'header',
-				{ className: 'row' },
-				React.createElement(
-					'div',
-					{ className: 'col-xs-10' },
-					React.createElement(
-						'h1',
-						null,
-						this.props.title
-					),
-					React.createElement(
-						'p',
-						null,
-						this.props.speaker
-					)
-				)
-			);
+			return null;
 		}
 	});
 
@@ -24873,8 +24856,6 @@
 			this.serverRequest.abort();
 		},
 		delete: function _delete(id) {
-			console.log('Ha! You want to delete my beautiful ' + id);
-
 			// Find index -> TODO: to util
 			var newpicts = this.state.picts;
 			for (var i = 0; i < newpicts.length; i++) {
@@ -24900,34 +24881,19 @@
 		},
 
 		render: function render() {
-			var _this = this;
-
-			if (this.state.picts.length > 0) {
+			if (this.state.picts.length) {
 				return React.createElement(
 					'div',
-					{ id: 'gallery', className: 'uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4', 'data-uk-grid': '{gutter: 15}' },
+					{ id: 'mypicts', 'data-uk-grid': true },
 					[].concat(_toConsumableArray(this.state.picts)).map(function (x) {
 						return React.createElement(
 							'div',
-							{ key: x._id },
+							null,
 							React.createElement(
 								'div',
-								{ className: 'uk-panel-box' },
-								React.createElement(
-									'div',
-									{ className: 'uk-panel-teaser' },
-									React.createElement('img', { src: x.pict.url })
-								),
-								React.createElement(
-									'p',
-									null,
-									x.pict.title
-								),
-								React.createElement(
-									'a',
-									{ onClick: _this.delete.bind(_this, x._id) },
-									'Delete'
-								)
+								{ className: 'uk-panel' },
+								React.createElement('img', { src: x.pict.url }),
+								'Huhu'
 							)
 						);
 					})
@@ -24936,7 +24902,7 @@
 				return React.createElement(
 					'div',
 					null,
-					'Loading ...'
+					'None ...'
 				);
 			}
 		}

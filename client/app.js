@@ -20,7 +20,7 @@ if (reactContainer) {
 	ReactDOM.render((
 		<Router history={browserHistory}>
 			<Route path='/' component={Main}>
-				<IndexRoute component={Example} />
+				<IndexRoute component={MyPicts} />
 				<Route path='example2' component={Example2} />
 				<Route path='gallery' component={Gallery} />
 				<Route path='add' component={AddForm} />
