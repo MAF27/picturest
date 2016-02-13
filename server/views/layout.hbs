@@ -13,39 +13,12 @@
 		<header>
 			<nav class="uk-navbar">
 
-				<a class="uk-navbar-brand" href="#">Brand</a>
+				<a class="uk-navbar-brand" href="/">Picturest</a>
 
 				<ul class="uk-navbar-nav">
-					<li class="uk-parent uk-active" data-uk-dropdown="">
-						<a href="">
-							<i class="uk-icon-home"></i>
-							Level1</a>
 
-						<div class="uk-dropdown uk-dropdown-navbar">
-							<ul class="uk-nav uk-nav-navbar">
-								<li>
-									<a href="#">Item</a>
-								</li>
-								<li>
-									<a href="#">Another item</a>
-								</li>
-								<li class="uk-nav-header">Header</li>
-								<li>
-									<a href="#">Item</a>
-								</li>
-								<li>
-									<a href="#">Another item</a>
-								</li>
-								<li class="uk-nav-divider"></li>
-								<li>
-									<a href="#">Separated item</a>
-								</li>
-							</ul>
-						</div>
-
-					</li>
 					<li class="uk-parent" data-uk-dropdown="" aria-haspopup="true" aria-expanded="false">
-						<a href="">Parent</a>
+						<a href="">Recent</a>
 
 						<div class="uk-dropdown uk-dropdown-navbar uk-dropdown-bottom" style="top: 40px; left: 0px;">
 							<ul class="uk-nav uk-nav-navbar">
@@ -70,22 +43,23 @@
 						</div>
 
 					</li>
-
 				</ul>
 
-				<div class="uk-navbar-content uk-hidden-small">
-					<form class="uk-form uk-margin-remove uk-display-inline-block">
-						<input type="text" placeholder="Search">
-						<button class="uk-button uk-button-primary">Submit</button>
-					</form>
-				</div>
-
-				<div class="uk-navbar-content uk-navbar-flip  uk-hidden-small">
-					<div class="uk-button-group">
-						<a class="uk-button uk-button-danger" href="#">Link</a>
-						<button class="uk-button uk-button-danger">Button</button>
+				<div class="uk-navbar-content uk-navbar-flip">
+						{{#if user}}
+						<ul class="uk-navbar-nav">
+							<li> <a href="/add">Add Pic</a> </li>
+							<li> <a href="/mypicts">My Pics</a>	</li>
+						</ul>
+								<a href="/users/logout" class="uk-button uk-button-primary">
+									<i class="uk-icon-user"></i>
+									Logout {{user}}</a>
+							{{else}}
+								<a href="/users/twitter" class="uk-button uk-button-success">
+									<i class="uk-icon-twitter"></i>
+									Sign In</a>
+						{{/if}}
 					</div>
-				</div>
 
 			</nav>
 		</header>

@@ -63,7 +63,7 @@ gulp.task('css', function() {
 gulp.task('server', function(){
 	nodemon({
 		script: 'server.js',
-		watch: ['server/*.js', 'server.js'],
+		watch: ['server/**/*.js', 'server.js'],
 		ignoreRoot: ['.git', 'node_modules', 'client', '.sass-cache'],
 		ignore: ['gulpfile.js', 'webpack.config.js']
 	});
@@ -80,7 +80,8 @@ gulp.task('open', function(){
 	var port = process.env.PORT || 3000;
 	return gulp
 		.src('')
-		.pipe(open({app: '/Applications/Google\ Chrome.app', uri: 'http://localhost:' + port}));
+		.pipe(open({app: '/Applications/Google\ Chrome.app', uri: 'http://127.0.0.1:' + port}));
+		// Cannot be localhost because of Twitter auth
 });
 
 gulp.task('default', ['hbs', 'js', 'css', 'fonts', 'images', 'watch', 'server', 'open']);

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var Movie = require('../models/movie');
+var Pict = require('../models/pict');
 
 // All routes relative to host/api
 router.get('/user', function(req, res) {
@@ -22,49 +22,40 @@ router.get('/user', function(req, res) {
 	}
 });
 
-router.post('/movie', function(req, res) {
-	var newMovie = new Movie(req.body);
+router.post('/pict', function(req, res) {
+	var newPict = new Pict({pict: req.body, user: req.user});
 
-	newMovie.save(function(err, movie) {
+	newPict.save(function(err, pict) {
 		if (err) {
 			res.status(500)
 				.json(err);
 		}
 		res.status(200)
-			.json(movie);
+			.json(pict);
 	});
 });
 
-router.get('/movie', function(req, res) {
-	Movie.find({}, function(err, movies) {
+router.delete('/pict', function(req, res) {
+	console.log('DELETE: ', req.body._id);
+
+	Pict.remove({'_id': req.body._id}, function(err, picts) {
 		if (err) {
-			console.log('API Error getting movies: ', err);
+			console.log('API Error deleting pict: ', err);
 		} else {
 			return res.status(200)
-				.json(movies);
+				.json(picts);
 		}
 	});
 });
 
-router.put('/movie', function(req, res) {
-	Movie.findOne({
-		'movie.id': req.body.movie.id
-	}, function(err, movie) {
+// Get all picts for current user
+router.get('/mypicts', function(req, res) {
+	Pict.find({'user.userId': req.user.userId}, function(err, picts) {
 		if (err) {
-			console.log('API error finding movie to update: ', err);
+			console.log('API Error getting picts: ', err);
 		} else {
-			movie.status = req.body.status;
-			movie.created = req.body.created;
-			movie.loaner = req.body.loaner;
-
-			movie.save(function(err) {
-				if (err) {
-					console.log('API error saving updated movie:', err);
-				} else {
-					return res.status(200)
-						.json(movie);
-				}
-			});
+			return res.status(200)
+				.json(picts);
 		}
 	});
 });

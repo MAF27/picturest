@@ -1,31 +1,8 @@
 module.exports = function() {
-	var passport 				= require("passport");
-	var passportLocal 	= require('passport-local');
+	var passport 				= require('passport');
 	var passportTwitter = require('passport-twitter');
-	var bcrypt 					= require("bcrypt");
 
-	var userService = require("../services/user-service");
-
-	// Email/Password Authentication
-	passport.use(new passportLocal.Strategy(function(username, password, next) {
-		userService.findUser(username, function(err, user) {
-			if (err) {
-				return next(err);
-			}
-			if (!user) {
-				return next(null, false, { message: 'No such user.' });
-			}
-			bcrypt.compare(password, user.password, function(err, same) {
-				if (err) {
-					return next(err);
-				}
-				if (!same) {
-					return next(null, false, { message: 'Wrong password.' });
-				}
-				next(null, user);
-			});
-		});
-	}));
+	var userService = require('../services/user-service');
 
 	// Twitter Authentication
 	passport.use(new passportTwitter.Strategy({
@@ -35,11 +12,12 @@ module.exports = function() {
 		},
 		function(token, tokenSecrect, profile, done) {
 			process.nextTick(function() {
-				userService.findUser(profile.username, function(err, user) {
+				userService.findById(profile.id, function(err, user) {
 
 					// if there is an error connecting to the database, stop everything and return error
-					if (err)
+					if (err) {
 						return done(err);
+					}
 
 					// if the user is found then log them in
 					if (user) {
@@ -47,16 +25,15 @@ module.exports = function() {
 					} else {
 						// if there is no user, create them
 						var newUser = { // set all of the user data that we need
-							'twitter': { id: profile.id },
-							'username': profile.username,
-							'firstName': profile.displayName,
-							'lastName': ' ', // cannot be empty, for validation
-							'password': ' '  // cannot be empty, for validation
+							userId: profile.id,
+							userName: profile.username,
+							twitterName: profile.displayName
 						};
 						// save our user into the database
-						userService.addUser(newUser, function(err, user) {
-							if (err)
+						userService.add(newUser, function(err, user) {
+							if (err) {
 								throw err;
+							}
 							return done(null, user);
 						});
 					}
@@ -65,18 +42,19 @@ module.exports = function() {
 			});
 
 			return (done(null, {
-				username: profile.username,
-				firstName: profile.displayName
+				userId: profile.id,
+				userName: profile.username,
+				twitterName: profile.displayName
 			}));
 		}));
 
 	passport.serializeUser(function(user, next) {
-		next(null, user.username);
+		// Minimum version, store user directly in session
+		next(null, user);
 	});
 
-	passport.deserializeUser(function(username, next) {
-		userService.findUser(username, function(err, user) {
-			next(err, user);
-		});
+	passport.deserializeUser(function(user, next) {
+		// Minimum version, store user directly in session
+		next(null, user);
 	});
 };
