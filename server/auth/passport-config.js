@@ -1,14 +1,19 @@
 module.exports = function() {
 	var passport 				= require('passport');
 	var passportTwitter = require('passport-twitter');
-
 	var userService = require('../services/user-service');
+
+	// Build address
+	// var a = window.location.href;
+	// var host = a.protocol + '//' + a.hostname + a.port ? (':' + a.port) : '';
+	// console.log('AUTH: Host: ', host);
 
 	// Twitter Authentication
 	passport.use(new passportTwitter.Strategy({
 			consumerKey: 'crj0aykPqH3N2Aoqn4Mm90Dcf',
 			consumerSecret: 'V8VjaYZPpAwd5ZaRrDMYOM28Gp9xn2jSqA9qHH03B2NgvouVs3',
-			callbackURL: 'http://127.0.0.1:3000/users/twitter/callback'
+			callbackURL: '/users/twitter/callback',
+			proxy: true
 		},
 		function(token, tokenSecrect, profile, done) {
 			process.nextTick(function() {

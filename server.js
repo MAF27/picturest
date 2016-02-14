@@ -71,5 +71,7 @@ app.set('port', process.env.PORT || 3000);
 var server = http.createServer(app);
 server.listen(app.get('port'), function() {
 	console.log('MODE: ', env);
+	console.log('** ENV: ', process.env.ip);
+
 	console.log('Server listening on port ' + app.get('port') + ' ...');
 });

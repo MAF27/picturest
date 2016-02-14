@@ -56,13 +56,13 @@
 
 	var Main = __webpack_require__(217);
 	var Gallery = __webpack_require__(219);
-	var Gallery2 = __webpack_require__(220);
-	var AddForm = __webpack_require__(228);
-	var MyPicts = __webpack_require__(229);
-	var AllPicts = __webpack_require__(230);
-	var Example = __webpack_require__(231);
-	var Example2 = __webpack_require__(232);
-	var Whoops404 = __webpack_require__(233);
+	var Gallery2 = __webpack_require__(221);
+	var AddForm = __webpack_require__(229);
+	var MyPicts = __webpack_require__(230);
+	var AllPicts = __webpack_require__(231);
+	var Example = __webpack_require__(232);
+	var Example2 = __webpack_require__(233);
+	var Whoops404 = __webpack_require__(234);
 
 	var reactContainer = document.getElementById('react-container');
 
@@ -24696,6 +24696,12 @@
 
 	'use strict';
 
+	var _reactImageloader = __webpack_require__(220);
+
+	var _reactImageloader2 = _interopRequireDefault(_reactImageloader);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	var React = __webpack_require__(1);
 
 	// var g = [
@@ -24751,7 +24757,11 @@
 							React.createElement(
 								'div',
 								{ className: 'uk-panel-teaser' },
-								React.createElement('img', { src: x.pict.url })
+								React.createElement(
+									_reactImageloader2.default,
+									{ src: x.pict.url },
+									React.createElement('img', { src: 'images/placeholder.svg' })
+								)
 							),
 							React.createElement(
 								'p',
@@ -24780,8 +24790,197 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var PropTypes = _react2['default'].PropTypes;
+	var span = _react2['default'].DOM.span;
+
+	var Status = {
+	  PENDING: 'pending',
+	  LOADING: 'loading',
+	  LOADED: 'loaded',
+	  FAILED: 'failed'
+	};
+
+	var ImageLoader = (function (_React$Component) {
+	  function ImageLoader(props) {
+	    _classCallCheck(this, ImageLoader);
+
+	    _get(Object.getPrototypeOf(ImageLoader.prototype), 'constructor', this).call(this, props);
+	    this.state = { status: props.src ? Status.LOADING : Status.PENDING };
+	  }
+
+	  _inherits(ImageLoader, _React$Component);
+
+	  _createClass(ImageLoader, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      if (this.state.status === Status.LOADING) {
+	        this.createLoader();
+	      }
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      if (this.props.src !== nextProps.src) {
+	        this.setState({
+	          status: nextProps.src ? Status.LOADING : Status.PENDING
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {
+	      if (this.state.status === Status.LOADING && !this.img) {
+	        this.createLoader();
+	      }
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      this.destroyLoader();
+	    }
+	  }, {
+	    key: 'getClassName',
+	    value: function getClassName() {
+	      var className = 'imageloader ' + this.state.status;
+	      if (this.props.className) className = '' + className + ' ' + this.props.className;
+	      return className;
+	    }
+	  }, {
+	    key: 'createLoader',
+	    value: function createLoader() {
+	      this.destroyLoader(); // We can only have one loader at a time.
+
+	      this.img = new Image();
+	      this.img.onload = this.handleLoad.bind(this);
+	      this.img.onerror = this.handleError.bind(this);
+	      this.img.src = this.props.src;
+	    }
+	  }, {
+	    key: 'destroyLoader',
+	    value: function destroyLoader() {
+	      if (this.img) {
+	        this.img.onload = null;
+	        this.img.onerror = null;
+	        this.img = null;
+	      }
+	    }
+	  }, {
+	    key: 'handleLoad',
+	    value: function handleLoad(event) {
+	      this.destroyLoader();
+	      this.setState({ status: Status.LOADED });
+
+	      if (this.props.onLoad) this.props.onLoad(event);
+	    }
+	  }, {
+	    key: 'handleError',
+	    value: function handleError(error) {
+	      this.destroyLoader();
+	      this.setState({ status: Status.FAILED });
+
+	      if (this.props.onError) this.props.onError(error);
+	    }
+	  }, {
+	    key: 'renderImg',
+	    value: function renderImg() {
+	      var _props2 = this.props;
+	      var src = _props2.src;
+	      var imgProps = _props2.imgProps;
+
+	      var props = { src: src };
+
+	      for (var k in imgProps) {
+	        if (imgProps.hasOwnProperty(k)) {
+	          props[k] = imgProps[k];
+	        }
+	      }
+
+	      return _react2['default'].createElement('img', props);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props;
+
+	      var wrapperProps = {
+	        className: this.getClassName()
+	      };
+
+	      if (this.props.style) {
+	        wrapperProps.style = this.props.style;
+	      }
+
+	      var wrapperArgs = [wrapperProps];
+
+	      switch (this.state.status) {
+	        case Status.LOADED:
+	          wrapperArgs.push(this.renderImg());
+	          break;
+
+	        case Status.FAILED:
+	          if (this.props.children) wrapperArgs.push(this.props.children);
+	          break;
+
+	        default:
+	          if (this.props.preloader) wrapperArgs.push(this.props.preloader());
+	          break;
+	      }
+
+	      return (_props = this.props).wrapper.apply(_props, wrapperArgs);
+	    }
+	  }], [{
+	    key: 'propTypes',
+	    value: {
+	      wrapper: PropTypes.func,
+	      className: PropTypes.string,
+	      style: PropTypes.object,
+	      preloader: PropTypes.func,
+	      src: PropTypes.string,
+	      onLoad: PropTypes.func,
+	      onError: PropTypes.func,
+	      imgProps: PropTypes.object
+	    },
+	    enumerable: true
+	  }, {
+	    key: 'defaultProps',
+	    value: {
+	      wrapper: span
+	    },
+	    enumerable: true
+	  }]);
+
+	  return ImageLoader;
+	})(_react2['default'].Component);
+
+	exports['default'] = ImageLoader;
+	module.exports = exports['default'];
+
+/***/ },
+/* 221 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
 	var React = __webpack_require__(1);
-	var AutoResponsive = __webpack_require__(221);
+	var AutoResponsive = __webpack_require__(222);
 
 	var g = [{ '_id': '56bf62de862cc1b20f37dca5', '__v': 0, 'created': '2016-02-13T17:07:42.382Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Chipper', 'url': 'http://images.northrup.org/picture/xl/chipmunk/picture-of-a-baby-chipmunk.jpg' } }, { '_id': '56bf78eda7927afb10abc514', '__v': 0, 'created': '2016-02-13T18:41:49.377Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Singfrosch', 'url': 'http://thumb1.shutterstock.com/display_pic_with_logo/1256209/195025850/stock-vector-frog-plays-the-violin-vector-illustration-eps-195025850.jpg' } }, { '_id': '56bf7969a7927afb10abc515', '__v': 0, 'created': '2016-02-13T18:43:53.498Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Hase', 'url': 'http://media05.myheimat.de/2010/03/16/979745_web.jpg?1268756366' } }, { '_id': '56bf99d0faa32ff7113ab332', '__v': 0, 'created': '2016-02-13T21:02:08.513Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Quark', 'url': 'https://media.allyouneedfresh.de/productpictures/ea/large/21228/12240/1/Exquisa-Quark-Creme-Natur-02-Fett-500-g.jpg' } }, { '_id': '56bf9c5cfaa32ff7113ab333', '__v': 0, 'created': '2016-02-13T21:13:00.697Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Throwaway', 'url': 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Skimmed_milk_quark_on_spoon.jpg' } }, { '_id': '56bf9c98faa32ff7113ab334', '__v': 0, 'created': '2016-02-13T21:14:00.751Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Nochwas', 'url': 'http://4.bp.blogspot.com/-TbF1zIXUeg8/T4UH-qzDr8I/AAAAAAAAEQc/-WbFkseFuFQ/s1600/Quark-ferengi-9330446-581-740.jpg' } }, { '_id': '56bf9cc9faa32ff7113ab335', '__v': 0, 'created': '2016-02-13T21:14:49.837Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Spacer', 'url': 'http://image.architonic.com/img_pro2-1/119/3101/1-6-quark-30-8e-wood-photo-credit-lavatori-b.jpg' } }, { '_id': '56c0797ec95bb7be18b59b9d', '__v': 0, 'created': '2016-02-14T12:56:30.955Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Rumbl', 'url': 'quargel' } }];
 
@@ -24812,7 +25011,7 @@
 	module.exports = Gallery;
 
 /***/ },
-/* 221 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* ================================================================
@@ -24839,12 +25038,12 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var React = __webpack_require__(1);
-	var Common = __webpack_require__(222);
+	var Common = __webpack_require__(223);
 
 	var Util = Common.Util;
 	var GridSort = Common.GridSort;
 
-	var AnimationManager = __webpack_require__(226);
+	var AnimationManager = __webpack_require__(227);
 
 	var noop = function noop() {};
 
@@ -25000,7 +25199,7 @@
 	module.exports = AutoResponsive;
 
 /***/ },
-/* 222 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* ================================================================
@@ -25018,11 +25217,11 @@
 
 	'use strict';
 
-	module.exports.Util = __webpack_require__(223);
-	module.exports.GridSort = __webpack_require__(224);
+	module.exports.Util = __webpack_require__(224);
+	module.exports.GridSort = __webpack_require__(225);
 
 /***/ },
-/* 223 */
+/* 224 */
 /***/ function(module, exports) {
 
 	/* ================================================================
@@ -25071,7 +25270,7 @@
 	};
 
 /***/ },
-/* 224 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* ================================================================
@@ -25093,8 +25292,8 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var LinkedList = __webpack_require__(225);
-	var Util = __webpack_require__(223);
+	var LinkedList = __webpack_require__(226);
+	var Util = __webpack_require__(224);
 
 	var GridSort = (function () {
 	  function GridSort(options) {
@@ -25179,7 +25378,7 @@
 	module.exports = GridSort;
 
 /***/ },
-/* 225 */
+/* 226 */
 /***/ function(module, exports) {
 
 	/* ================================================================
@@ -25304,7 +25503,7 @@
 	module.exports = LinkedList;
 
 /***/ },
-/* 226 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* ================================================================
@@ -25326,8 +25525,8 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	var Common = __webpack_require__(222);
-	var ExecutionEnvironment = __webpack_require__(227);
+	var Common = __webpack_require__(223);
+	var ExecutionEnvironment = __webpack_require__(228);
 
 	var Util = Common.Util;
 
@@ -25427,7 +25626,7 @@
 	module.exports = AnimationManager;
 
 /***/ },
-/* 227 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -25472,7 +25671,7 @@
 
 
 /***/ },
-/* 228 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25550,10 +25749,16 @@
 	module.exports = AddForm;
 
 /***/ },
-/* 229 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+
+	var _reactImageloader = __webpack_require__(220);
+
+	var _reactImageloader2 = _interopRequireDefault(_reactImageloader);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
@@ -25626,7 +25831,11 @@
 							React.createElement(
 								'div',
 								{ className: 'uk-panel-teaser' },
-								React.createElement('img', { src: x.pict.url })
+								React.createElement(
+									_reactImageloader2.default,
+									{ src: x.pict.url },
+									React.createElement('img', { src: 'images/placeholder.svg' })
+								)
 							),
 							React.createElement(
 								'p',
@@ -25648,10 +25857,16 @@
 	module.exports = MyPicts;
 
 /***/ },
-/* 230 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+
+	var _reactImageloader = __webpack_require__(220);
+
+	var _reactImageloader2 = _interopRequireDefault(_reactImageloader);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
@@ -25698,7 +25913,11 @@
 							React.createElement(
 								'div',
 								{ className: 'uk-panel-teaser' },
-								React.createElement('img', { src: x.pict.url })
+								React.createElement(
+									_reactImageloader2.default,
+									{ src: x.pict.url },
+									React.createElement('img', { src: 'images/placeholder.svg' })
+								)
 							),
 							React.createElement(
 								'p',
@@ -25715,7 +25934,7 @@
 	module.exports = AllPicts;
 
 /***/ },
-/* 231 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25748,7 +25967,7 @@
 	module.exports = Example;
 
 /***/ },
-/* 232 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25781,7 +26000,7 @@
 	module.exports = Example2;
 
 /***/ },
-/* 233 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

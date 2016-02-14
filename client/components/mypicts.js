@@ -1,5 +1,6 @@
 /* global $ */
 var React = require('react');
+import ImageLoader from 'react-imageloader';
 
 var MyPicts = React.createClass({
 	getInitialState() {
@@ -55,7 +56,11 @@ var MyPicts = React.createClass({
 
 						{[...this.state.picts].map((x, i) => <div key={i}>
 							<div className='uk-panel uk-panel-box'>
-								<div className='uk-panel-teaser'><img src={x.pict.url}></img></div>
+								<div className='uk-panel-teaser'>
+									<ImageLoader src={x.pict.url}>
+										<img src='images/placeholder.svg'/>
+									</ImageLoader>
+									</div>
 								<p>{x.pict.title}</p>
 								<a onClick={this.delete.bind(this, x._id)}>Delete</a>
 							</div>

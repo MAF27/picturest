@@ -1,4 +1,5 @@
 var React = require('react');
+import ImageLoader from 'react-imageloader';
 
 // var g = [
 // 	{
@@ -44,7 +45,11 @@ var Gallery = React.createClass({
 
 				{[...g].map((x, i) => <div key={i}>
 					<div className='uk-panel uk-panel-box'>
-						<div className='uk-panel-teaser'><img src={x.pict.url}></img></div>
+						<div className='uk-panel-teaser'>
+							<ImageLoader src={x.pict.url}>
+								<img src='images/placeholder.svg'/>
+							</ImageLoader>
+						</div>
 						<p>{x.pict.title}</p>
 						<a>Delete</a>
 					</div>
