@@ -1,4 +1,4 @@
-#gallery {
+.gallery {
 	/*div {
 		margin: 5px;
 
@@ -14,5 +14,9 @@
 	a, p {
 		margin: 0;
 		padding: 0;
+	}
+
+	a {
+		color: red;
 	}
 }

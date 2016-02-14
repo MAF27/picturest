@@ -60,4 +60,16 @@ router.get('/mypicts', function(req, res) {
 	});
 });
 
+// Get all picts
+router.get('/allpicts', function(req, res) {
+	Pict.find({}, function(err, picts) {
+		if (err) {
+			console.log('API Error getting picts: ', err);
+		} else {
+			return res.status(200)
+				.json(picts);
+		}
+	});
+});
+
 module.exports = router;

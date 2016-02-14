@@ -23,6 +23,9 @@ var AddForm = React.createClass({
 				console.error('Error saving pict', status, err.toString());
 			}.bind(this)
 		});
+
+		// Redirect to My Picst
+		window.location = '/mypicts';
 	},
 	render: function() {
 		return (
@@ -36,7 +39,7 @@ var AddForm = React.createClass({
         <div className="uk-form-row">
             <label className="uk-form-label">Picture Address</label>
             <div className="uk-form-controls">
-                <input type="text" name="url" placeholder="URL" onChange={this.onChange} />
+                <input type="text" name="url" placeholder="URL" onChange={this.onChange} className="uk-form-width-large"/>
             </div>
         </div>
 				<input className="uk-button" type="submit" value="Submit" />
