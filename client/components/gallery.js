@@ -1,3 +1,4 @@
+/* global UIkit */
 var React = require('react');
 import ImageLoader from 'react-imageloader';
 
@@ -39,7 +40,7 @@ var g = [{'_id':'56bf62de862cc1b20f37dca5','__v':0,'created':'2016-02-13T17:07:4
 
 
 var Gallery = React.createClass({
-	render: function() {
+	generateContent() {
 		return (
 			<div className='uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 gallery' data-uk-grid='{gutter: 20}' >
 
@@ -47,7 +48,7 @@ var Gallery = React.createClass({
 					<div className='uk-panel uk-panel-box'>
 						<div className='uk-panel-teaser'>
 							<ImageLoader src={x.pict.url}>
-								<img src='images/placeholder.svg'/>
+								<img src='images/placeholder.png'/>
 							</ImageLoader>
 						</div>
 						<p>{x.pict.title}</p>
@@ -57,6 +58,12 @@ var Gallery = React.createClass({
 
 			</div >
 		);
+	},
+	render: function() {
+		var c = this.generateContent();
+		// Re-Init Dynamic Grid, particularly for IE
+		UIkit.grid('.gallery', {});
+		return(c);
 	}
 });
 

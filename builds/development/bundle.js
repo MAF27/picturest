@@ -57,12 +57,12 @@
 	var Main = __webpack_require__(217);
 	var Gallery = __webpack_require__(219);
 	var Gallery2 = __webpack_require__(221);
-	var AddForm = __webpack_require__(229);
-	var MyPicts = __webpack_require__(230);
-	var AllPicts = __webpack_require__(231);
-	var Example = __webpack_require__(232);
-	var Example2 = __webpack_require__(233);
-	var Whoops404 = __webpack_require__(234);
+	var AddForm = __webpack_require__(222);
+	var MyPicts = __webpack_require__(223);
+	var AllPicts = __webpack_require__(224);
+	var Example = __webpack_require__(225);
+	var Example2 = __webpack_require__(226);
+	var Whoops404 = __webpack_require__(227);
 
 	var reactContainer = document.getElementById('react-container');
 
@@ -24702,6 +24702,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	/* global UIkit */
 	var React = __webpack_require__(1);
 
 	// var g = [
@@ -24742,8 +24743,7 @@
 
 	var Gallery = React.createClass({
 		displayName: 'Gallery',
-
-		render: function render() {
+		generateContent: function generateContent() {
 			return React.createElement(
 				'div',
 				{ className: 'uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 gallery', 'data-uk-grid': '{gutter: 20}' },
@@ -24760,7 +24760,7 @@
 								React.createElement(
 									_reactImageloader2.default,
 									{ src: x.pict.url },
-									React.createElement('img', { src: 'images/placeholder.svg' })
+									React.createElement('img', { src: 'images/placeholder.png' })
 								)
 							),
 							React.createElement(
@@ -24777,6 +24777,13 @@
 					);
 				})
 			);
+		},
+
+		render: function render() {
+			var c = this.generateContent();
+			// Re-Init Dynamic Grid, particularly for IE
+			UIkit.grid('.gallery', {});
+			return c;
 		}
 	});
 
@@ -24979,699 +24986,49 @@
 
 	'use strict';
 
+	var _reactImageloader = __webpack_require__(220);
+
+	var _reactImageloader2 = _interopRequireDefault(_reactImageloader);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/* global $ */
 	var React = __webpack_require__(1);
-	var AutoResponsive = __webpack_require__(222);
 
 	var g = [{ '_id': '56bf62de862cc1b20f37dca5', '__v': 0, 'created': '2016-02-13T17:07:42.382Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Chipper', 'url': 'http://images.northrup.org/picture/xl/chipmunk/picture-of-a-baby-chipmunk.jpg' } }, { '_id': '56bf78eda7927afb10abc514', '__v': 0, 'created': '2016-02-13T18:41:49.377Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Singfrosch', 'url': 'http://thumb1.shutterstock.com/display_pic_with_logo/1256209/195025850/stock-vector-frog-plays-the-violin-vector-illustration-eps-195025850.jpg' } }, { '_id': '56bf7969a7927afb10abc515', '__v': 0, 'created': '2016-02-13T18:43:53.498Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Hase', 'url': 'http://media05.myheimat.de/2010/03/16/979745_web.jpg?1268756366' } }, { '_id': '56bf99d0faa32ff7113ab332', '__v': 0, 'created': '2016-02-13T21:02:08.513Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Quark', 'url': 'https://media.allyouneedfresh.de/productpictures/ea/large/21228/12240/1/Exquisa-Quark-Creme-Natur-02-Fett-500-g.jpg' } }, { '_id': '56bf9c5cfaa32ff7113ab333', '__v': 0, 'created': '2016-02-13T21:13:00.697Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Throwaway', 'url': 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Skimmed_milk_quark_on_spoon.jpg' } }, { '_id': '56bf9c98faa32ff7113ab334', '__v': 0, 'created': '2016-02-13T21:14:00.751Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Nochwas', 'url': 'http://4.bp.blogspot.com/-TbF1zIXUeg8/T4UH-qzDr8I/AAAAAAAAEQc/-WbFkseFuFQ/s1600/Quark-ferengi-9330446-581-740.jpg' } }, { '_id': '56bf9cc9faa32ff7113ab335', '__v': 0, 'created': '2016-02-13T21:14:49.837Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Spacer', 'url': 'http://image.architonic.com/img_pro2-1/119/3101/1-6-quark-30-8e-wood-photo-credit-lavatori-b.jpg' } }, { '_id': '56c0797ec95bb7be18b59b9d', '__v': 0, 'created': '2016-02-14T12:56:30.955Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Rumbl', 'url': 'quargel' } }];
 
-	var Gallery = React.createClass({
-	    displayName: 'Gallery',
+	var Gallery2 = React.createClass({
+		displayName: 'Gallery2',
+		componentWillMount: function componentWillMount() {},
 
-	    render: function render() {
-	        var _this = this;
-
-	        return React.createElement(
-	            AutoResponsive,
-	            { ref: 'container' },
-	            [].concat(g).map(function (x, i) {
-	                return React.createElement(
-	                    'div',
-	                    { key: i },
-	                    React.createElement(
-	                        'div',
-	                        { onClick: _this.clickItemHandle, className: 'item', style: _this.state.styleList[i] },
-	                        i
-	                    )
-	                );
-	            })
-	        );
-	    }
+		render: function render() {
+			return React.createElement(
+				'div',
+				{ className: 'gallery' },
+				[].concat(g).map(function (x, i) {
+					return React.createElement(
+						'figure',
+						{ key: i },
+						React.createElement(
+							_reactImageloader2.default,
+							{ src: x.pict.url },
+							React.createElement('img', { src: 'images/placeholder.png' })
+						),
+						React.createElement(
+							'figcaption',
+							null,
+							x.pict.title
+						)
+					);
+				})
+			);
+		}
 	});
 
-	module.exports = Gallery;
+	module.exports = Gallery2;
 
 /***/ },
 /* 222 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* ================================================================
-	 * autoresponsive-react by xdf(xudafeng[at]126.com)
-	 *
-	 * first created at : Mon Jun 02 2014 20:15:51 GMT+0800 (CST)
-	 *
-	 * ================================================================
-	 * Copyright 2014 xdf
-	 *
-	 * Licensed under the MIT License
-	 * You may not use this file except in compliance with the License.
-	 *
-	 * ================================================================ */
-
-	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var React = __webpack_require__(1);
-	var Common = __webpack_require__(223);
-
-	var Util = Common.Util;
-	var GridSort = Common.GridSort;
-
-	var AnimationManager = __webpack_require__(227);
-
-	var noop = function noop() {};
-
-	var AutoResponsive = (function (_React$Component) {
-	  _inherits(AutoResponsive, _React$Component);
-
-	  function AutoResponsive(props) {
-	    _classCallCheck(this, AutoResponsive);
-
-	    _get(Object.getPrototypeOf(AutoResponsive.prototype), 'constructor', this).call(this, props);
-	    this.state = {};
-	  }
-
-	  _createClass(AutoResponsive, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.sortManager = new GridSort({
-	        containerWidth: this.props.containerWidth,
-	        gridWidth: this.props.gridWidth
-	      });
-
-	      this.animationManager = new AnimationManager();
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-
-	      if (this.props.containerWidth !== nextProps.containerWidth) {
-	        this.sortManager.changeProps({
-	          containerWidth: nextProps.containerWidth
-	        });
-	      }
-	    }
-	  }, {
-	    key: 'setPrivateProps',
-	    value: function setPrivateProps() {
-	      this.containerStyle = {
-	        position: 'relative',
-	        height: this.containerHeight || 0
-	      };
-
-	      if (typeof this.props.containerHeight === 'number') {
-	        this.fixedContainerHeight = true;
-	        this.containerStyle.height = this.props.containerHeight;
-	      } else {
-	        this.fixedContainerHeight = false;
-	      }
-	    }
-	  }, {
-	    key: 'componentWillUpdate',
-	    value: function componentWillUpdate() {
-	      this.sortManager.init();
-	    }
-	  }, {
-	    key: 'renderChildren',
-	    value: function renderChildren() {
-	      var _this = this;
-
-	      return React.Children.map(this.props.children, function (child, childIndex) {
-
-	        if (child.props.className && _this.props.itemClassName && ! ~child.props.className.indexOf(_this.props.itemClassName)) {
-	          return;
-	        }
-
-	        var childWidth = parseInt(child.props.style.width, 10) + _this.props.itemMargin;
-	        var childHeight = parseInt(child.props.style.height, 10) + _this.props.itemMargin;
-
-	        var calculatedPosition = _this.sortManager.getPosition(childWidth, childHeight, _this.containerStyle.height);
-
-	        if (!_this.fixedContainerHeight && _this.props.containerWidth) {
-
-	          if (calculatedPosition[1] + childHeight > _this.containerStyle.height) {
-	            _this.containerStyle.height = calculatedPosition[1] + childHeight;
-	          }
-	        }
-
-	        var calculatedStyle = _this.animationManager.generate(Util.extend({}, _this.props, {
-	          position: calculatedPosition,
-	          size: {
-	            width: childWidth,
-	            height: childHeight
-	          },
-	          containerHeight: _this.containerStyle.height
-	        }));
-
-	        _this.mixItemInlineStyle(calculatedStyle);
-
-	        _this.props.onItemDidLayout.call(_this, child);
-
-	        if (childIndex + 1 === _this.props.children.length) {
-	          _this.props.onContainerDidLayout.call(_this);
-	        }
-
-	        return React.cloneElement(child, {
-	          style: Util.extend({}, child.props.style, calculatedStyle)
-	        });
-	      });
-	    }
-	  }, {
-	    key: 'mixItemInlineStyle',
-	    value: function mixItemInlineStyle(s) {
-	      var itemMargin = this.props.itemMargin;
-	      var style = {
-	        display: 'block',
-	        float: 'left',
-	        margin: '0 ' + itemMargin + 'px ' + itemMargin + 'px 0 '
-	      };
-
-	      if (this.props.containerWidth) {
-	        style = {
-	          position: 'absolute'
-	        };
-	      }
-	      Util.merge(s, style);
-	    }
-	  }, {
-	    key: 'getContainerStyle',
-	    value: function getContainerStyle() {
-	      return this.containerStyle;
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      this.setPrivateProps();
-
-	      return React.createElement(
-	        'div',
-	        { ref: 'container', className: this.props.prefixClassName + '-container', style: this.getContainerStyle() },
-	        this.renderChildren()
-	      );
-	    }
-	  }]);
-
-	  return AutoResponsive;
-	})(React.Component);
-
-	AutoResponsive.defaultProps = {
-	  containerWidth: null,
-	  containerHeight: null,
-	  gridWidth: 10,
-	  prefixClassName: 'rc-autoresponsive',
-	  itemClassName: 'item',
-	  itemMargin: 0,
-	  horizontalDirection: 'left',
-	  transitionDuration: 1,
-	  transitionTimingFunction: 'linear',
-	  verticalDirection: 'top',
-	  closeAnimation: false,
-	  onItemDidLayout: noop,
-	  onContainerDidLayout: noop
-	};
-
-	module.exports = AutoResponsive;
-
-/***/ },
-/* 223 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* ================================================================
-	 * autoresponsive-common by xdf(xudafeng[at]126.com)
-	 *
-	 * first created at : Mon Jun 02 2014 20:15:51 GMT+0800 (CST)
-	 *
-	 * ================================================================
-	 * Copyright 2014 xdf
-	 *
-	 * Licensed under the MIT License
-	 * You may not use this file except in compliance with the License.
-	 *
-	 * ================================================================ */
-
-	'use strict';
-
-	module.exports.Util = __webpack_require__(224);
-	module.exports.GridSort = __webpack_require__(225);
-
-/***/ },
-/* 224 */
-/***/ function(module, exports) {
-
-	/* ================================================================
-	 * autoresponsive-common by xdf(xudafeng[at]126.com)
-	 *
-	 * first created at : Mon Jun 02 2014 20:15:51 GMT+0800 (CST)
-	 *
-	 * ================================================================
-	 * Copyright 2014 xdf
-	 *
-	 * Licensed under the MIT License
-	 * You may not use this file except in compliance with the License.
-	 *
-	 * ================================================================ */
-
-	'use strict';
-
-	exports.merge = function (r, s) {
-	  this.each(s, function (v, k) {
-	    r[k] = v;
-	  });
-	  return r;
-	};
-
-	exports.each = function (obj, fn) {
-	  for (var i in obj) {
-	    if (obj.hasOwnProperty(i)) {
-	      fn.call(this, obj[i], i);
-	    }
-	  }
-	  return obj;
-	};
-
-	exports.extend = function () {
-	  var args = Array.prototype.slice.call(arguments);
-	  var object = args.shift();
-
-	  for (var i = 0, l = args.length; i < l; i++) {
-	    var props = args[i];
-
-	    for (var key in props) {
-	      object[key] = props[key];
-	    }
-	  }
-	  return object;
-	};
-
-/***/ },
-/* 225 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* ================================================================
-	 * autoresponsive-common by xdf(xudafeng[at]126.com)
-	 *
-	 * first created at : Mon Jun 02 2014 20:15:51 GMT+0800 (CST)
-	 *
-	 * ================================================================
-	 * Copyright 2014 xdf
-	 *
-	 * Licensed under the MIT License
-	 * You may not use this file except in compliance with the License.
-	 *
-	 * ================================================================ */
-
-	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var LinkedList = __webpack_require__(226);
-	var Util = __webpack_require__(224);
-
-	var GridSort = (function () {
-	  function GridSort(options) {
-	    _classCallCheck(this, GridSort);
-
-	    this.containerWidth = options.containerWidth;
-	    this.gridWidth = options.gridWidth;
-	    this.init();
-	  }
-
-	  _createClass(GridSort, [{
-	    key: 'init',
-	    value: function init() {
-	      var curQuery = new LinkedList({});
-	      var span = Math.ceil(this.containerWidth / this.gridWidth);
-
-	      for (var i = 0; i < span; i++) {
-	        curQuery.add(0);
-	      }
-
-	      this.curQuery = curQuery;
-	    }
-	  }, {
-	    key: 'changeProps',
-	    value: function changeProps(props) {
-	      Util.merge(this, props);
-	    }
-	  }, {
-	    key: 'getPosition',
-	    value: function getPosition(width, height) {
-	      var num = Math.ceil(width / this.gridWidth);
-	      var cur = this.getCurrentPointer(num);
-
-	      for (var i = cur[0], len = num + cur[0], newH = cur[1] + height; i < len; i++) {
-	        this.curQuery.update(i, newH);
-	      }
-	      return [cur[0] * this.gridWidth, cur[1]];
-	    }
-	  }, {
-	    key: 'getCurrentPointer',
-	    value: function getCurrentPointer(num) {
-	      var min = Infinity;
-	      var idx = 0;
-	      var len = this.curQuery.size();
-
-	      for (var i = 0; i <= (len < num ? 0 : len - num); i++) {
-	        var max = -Infinity;
-	        var curValue = undefined;
-
-	        for (var j = 0; j < num; j++) {
-	          curValue = this.curQuery.get(i + j);
-
-	          if (curValue >= min) {
-	            i += j + 1;
-
-	            if (i > len - num) {
-	              max = min;
-	              break;
-	            }
-	            j = -1;
-	            max = -Infinity;
-	            continue;
-	          }
-
-	          if (curValue > max) {
-	            max = curValue;
-	          }
-	        }
-
-	        if (min > max) {
-	          min = max;
-	          idx = i;
-	        }
-	      }
-	      return [idx, min];
-	    }
-	  }]);
-
-	  return GridSort;
-	})();
-
-	module.exports = GridSort;
-
-/***/ },
-/* 226 */
-/***/ function(module, exports) {
-
-	/* ================================================================
-	 * autoresponsive-common by xdf(xudafeng[at]126.com)
-	 *
-	 * first created at : Mon Jun 02 2014 20:15:51 GMT+0800 (CST)
-	 *
-	 * ================================================================
-	 * Copyright 2014 xdf
-	 *
-	 * Licensed under the MIT License
-	 * You may not use this file except in compliance with the License.
-	 *
-	 * ================================================================ */
-
-	"use strict";
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var LinkedList = (function () {
-	  function LinkedList(cfg) {
-	    _classCallCheck(this, LinkedList);
-
-	    this.length = 0;
-	    this.head = null;
-	    this.tail = null;
-	    this.type = cfg.type || true;
-	    this.query = [];
-	  }
-
-	  _createClass(LinkedList, [{
-	    key: "add",
-	    value: function add(value) {
-	      if (this.type) {
-	        this.query.push(value);
-	        return;
-	      }
-	      var node = {
-	        value: value,
-	        next: null,
-	        prev: null
-	      };
-	      if (this.length === 0) {
-	        this.head = this.tail = node;
-	      } else {
-	        this.tail.next = node;
-	        node.prev = this.tail;
-	        this.tail = node;
-	      }
-	      this.length++;
-	    }
-	  }, {
-	    key: "remove",
-	    value: function remove(index) {
-	      if (index > this.length - 1 || index < 0) {
-	        return null;
-	      }
-	      var node = this.head;
-	      var i = 0;
-	      if (index === 0) {
-	        this.head = node.next;
-	        if (this.head == null) {
-	          this.tail = null;
-	        } else {
-	          this.head.previous = null;
-	        }
-	      } else if (index === this.length - 1) {
-	        node = this.tail;
-	        this.tail = node.prev;
-	        this.tail.next = null;
-	      } else {
-	        while (i++ < index) {
-	          node = node.next;
-	        }
-	        node.prev.next = node.next;
-	        node.next.prev = node.prev;
-	      }
-	      this.length--;
-	    }
-	  }, {
-	    key: "get",
-	    value: function get(index) {
-	      if (this.type) {
-	        return this.query[index];
-	      }
-	      return this.node(index).value;
-	    }
-	  }, {
-	    key: "node",
-	    value: function node(index) {
-	      if (index > this.length - 1 || index < 0) {
-	        return null;
-	      }
-	      var node = this.head;
-	      var i = 0;
-	      while (i++ < index) {
-	        node = node.next;
-	      }
-	      return node;
-	    }
-	  }, {
-	    key: "update",
-	    value: function update(index, value) {
-	      if (this.type) {
-	        this.query[index] = value;
-	        return;
-	      }
-	      this.node(index).value = value;
-	    }
-	  }, {
-	    key: "size",
-	    value: function size() {
-	      return this.query.length || this.length;
-	    }
-	  }]);
-
-	  return LinkedList;
-	})();
-
-	module.exports = LinkedList;
-
-/***/ },
-/* 227 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* ================================================================
-	 * autoresponsive-react by xdf(xudafeng[at]126.com)
-	 *
-	 * first created at : Mon Jun 02 2014 20:15:51 GMT+0800 (CST)
-	 *
-	 * ================================================================
-	 * Copyright 2014 xdf
-	 *
-	 * Licensed under the MIT License
-	 * You may not use this file except in compliance with the License.
-	 *
-	 * ================================================================ */
-
-	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	var Common = __webpack_require__(223);
-	var ExecutionEnvironment = __webpack_require__(228);
-
-	var Util = Common.Util;
-
-	function transitionEnd() {
-	  var transitionEndEventNames = {
-	    WebkitTransition: 'webkitTransitionEnd',
-	    MozTransition: 'transitionend',
-	    OTransition: 'oTransitionEnd otransitionend',
-	    transition: 'transitionend'
-	  };
-	  if (!ExecutionEnvironment.canUseDOM) {
-	    return transitionEndEventNames;
-	  }
-	  var el = document.createElement('pin');
-
-	  for (var _name in transitionEndEventNames) {
-	    if (el.style[_name] !== undefined) {
-	      return transitionEndEventNames[_name];
-	    }
-	  }
-	  return false;
-	}
-
-	var ifHasTransitionEnd = transitionEnd();
-
-	var prefixes = ['Webkit', 'Moz', 'ms', 'O', ''];
-
-	var AnimationManager = (function () {
-	  function AnimationManager() {
-	    _classCallCheck(this, AnimationManager);
-
-	    this.animationHandle = 'css' + (ifHasTransitionEnd ? 3 : 2) + 'Animation';
-	  }
-
-	  _createClass(AnimationManager, [{
-	    key: 'generate',
-	    value: function generate(options) {
-	      Util.merge(this, options);
-	      return this[this.animationHandle]();
-	    }
-	  }, {
-	    key: 'css2Animation',
-	    value: function css2Animation() {
-	      var style = {};
-	      style[this.horizontalDirection] = this.position[0] + 'px';
-	      style[this.verticalDirection] = this.position[1] + 'px';
-
-	      this.mixAnimation(style);
-	      return style;
-	    }
-	  }, {
-	    key: 'css3Animation',
-	    value: function css3Animation() {
-	      var _this = this;
-
-	      var style = {};
-
-	      prefixes.map(function (prefix) {
-	        var x = undefined,
-	            y = undefined;
-
-	        if (_this.horizontalDirection === 'right') {
-	          x = _this.containerWidth - _this.size.width - _this.position[0];
-	        } else {
-	          x = _this.position[0];
-	        }
-
-	        if (_this.verticalDirection === 'bottom') {
-	          y = _this.containerHeight - _this.size.height - _this.position[1];
-	        } else {
-	          y = _this.position[1];
-	        }
-
-	        style[prefix + 'Transform'] = 'translate3d(' + x + 'px, ' + y + 'px, 0)';
-	      });
-
-	      this.mixAnimation(style);
-	      return style;
-	    }
-	  }, {
-	    key: 'mixAnimation',
-	    value: function mixAnimation(style) {
-	      var _this2 = this;
-
-	      if (!this.closeAnimation) {
-	        prefixes.map(function (prefix) {
-	          style[prefix + 'TransitionDuration'] = _this2.transitionDuration + 's';
-	          style[prefix + 'TransitionTimingFunction'] = _this2.transitionTimingFunction;
-	        });
-	      }
-	    }
-	  }]);
-
-	  return AnimationManager;
-	})();
-
-	module.exports = AnimationManager;
-
-/***/ },
-/* 228 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	  Copyright (c) 2015 Jed Watson.
-	  Based on code that is Copyright 2013-2015, Facebook, Inc.
-	  All rights reserved.
-	*/
-
-	(function () {
-		'use strict';
-
-		var canUseDOM = !!(
-			typeof window !== 'undefined' &&
-			window.document &&
-			window.document.createElement
-		);
-
-		var ExecutionEnvironment = {
-
-			canUseDOM: canUseDOM,
-
-			canUseWorkers: typeof Worker !== 'undefined',
-
-			canUseEventListeners:
-				canUseDOM && !!(window.addEventListener || window.attachEvent),
-
-			canUseViewport: canUseDOM && !!window.screen
-
-		};
-
-		if (true) {
-			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
-				return ExecutionEnvironment;
-			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-		} else if (typeof module !== 'undefined' && module.exports) {
-			module.exports = ExecutionEnvironment;
-		} else {
-			window.ExecutionEnvironment = ExecutionEnvironment;
-		}
-
-	}());
-
-
-/***/ },
-/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25749,7 +25106,7 @@
 	module.exports = AddForm;
 
 /***/ },
-/* 230 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25762,29 +25119,36 @@
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-	/* global $ */
+	/* global $, UIkit */
 	var React = __webpack_require__(1);
+
+	var mock = false;
+
+	var g = [{ '_id': '56bf62de862cc1b20f37dca5', '__v': 0, 'created': '2016-02-13T17:07:42.382Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Chipper', 'url': 'http://images.northrup.org/picture/xl/chipmunk/picture-of-a-baby-chipmunk.jpg' } }, { '_id': '56bf78eda7927afb10abc514', '__v': 0, 'created': '2016-02-13T18:41:49.377Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Singfrosch', 'url': 'http://thumb1.shutterstock.com/display_pic_with_logo/1256209/195025850/stock-vector-frog-plays-the-violin-vector-illustration-eps-195025850.jpg' } }, { '_id': '56bf7969a7927afb10abc515', '__v': 0, 'created': '2016-02-13T18:43:53.498Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Hase', 'url': 'http://media05.myheimat.de/2010/03/16/979745_web.jpg?1268756366' } }, { '_id': '56bf99d0faa32ff7113ab332', '__v': 0, 'created': '2016-02-13T21:02:08.513Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Quark', 'url': 'https://media.allyouneedfresh.de/productpictures/ea/large/21228/12240/1/Exquisa-Quark-Creme-Natur-02-Fett-500-g.jpg' } }, { '_id': '56bf9c5cfaa32ff7113ab333', '__v': 0, 'created': '2016-02-13T21:13:00.697Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Throwaway', 'url': 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Skimmed_milk_quark_on_spoon.jpg' } }, { '_id': '56bf9c98faa32ff7113ab334', '__v': 0, 'created': '2016-02-13T21:14:00.751Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Nochwas', 'url': 'http://4.bp.blogspot.com/-TbF1zIXUeg8/T4UH-qzDr8I/AAAAAAAAEQc/-WbFkseFuFQ/s1600/Quark-ferengi-9330446-581-740.jpg' } }, { '_id': '56bf9cc9faa32ff7113ab335', '__v': 0, 'created': '2016-02-13T21:14:49.837Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Spacer', 'url': 'http://image.architonic.com/img_pro2-1/119/3101/1-6-quark-30-8e-wood-photo-credit-lavatori-b.jpg' } }, { '_id': '56c0797ec95bb7be18b59b9d', '__v': 0, 'created': '2016-02-14T12:56:30.955Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Rumbl', 'url': 'quargel' } }];
 
 	var MyPicts = React.createClass({
 		displayName: 'MyPicts',
 		getInitialState: function getInitialState() {
 			return { picts: [] };
 		},
-		componentDidMount: function componentDidMount() {
-			this.serverRequest = $.ajax({
-				url: '/api/mypicts',
-				dataType: 'json',
-				type: 'GET',
-				success: function (data) {
-					this.setState({ picts: data });
-				}.bind(this),
-				error: function (xhr, status, err) {
-					console.error('Error getting picts: ', status, err.toString());
-				}.bind(this)
-			});
-
-			return null;
+		componentWillMount: function componentWillMount() {
+			if (mock) {
+				this.setState({ picts: g });
+			} else {
+				this.serverRequest = $.ajax({
+					url: '/api/mypicts',
+					dataType: 'json',
+					type: 'GET',
+					success: function (data) {
+						this.setState({ picts: data });
+					}.bind(this),
+					error: function (xhr, status, err) {
+						console.error('Error getting picts: ', status, err.toString());
+					}.bind(this)
+				});
+			}
 		},
+		componentDidMount: function componentDidMount() {},
 		componentWillUnmount: function componentWillUnmount() {
 			this.serverRequest.abort();
 		},
@@ -25812,52 +25176,54 @@
 			}
 			return null;
 		},
-
-		render: function render() {
+		generateContent: function generateContent() {
 			var _this = this;
-
-			console.log('State, flag: ', this.state, this.state.picts.length > 0);
 
 			return React.createElement(
 				'div',
-				{ className: 'uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 gallery', 'data-uk-grid': '{gutter: 20}' },
+				{ className: 'gallery' },
 				[].concat(_toConsumableArray(this.state.picts)).map(function (x, i) {
 					return React.createElement(
-						'div',
+						'figure',
 						{ key: i },
 						React.createElement(
-							'div',
-							{ className: 'uk-panel uk-panel-box' },
-							React.createElement(
-								'div',
-								{ className: 'uk-panel-teaser' },
-								React.createElement(
-									_reactImageloader2.default,
-									{ src: x.pict.url },
-									React.createElement('img', { src: 'images/placeholder.svg' })
-								)
-							),
-							React.createElement(
-								'p',
-								null,
-								x.pict.title
-							),
-							React.createElement(
-								'a',
-								{ onClick: _this.delete.bind(_this, x._id) },
-								'Delete'
-							)
+							_reactImageloader2.default,
+							{ src: x.pict.url },
+							React.createElement('img', { src: 'images/placeholder.png' })
+						),
+						React.createElement(
+							'figcaption',
+							null,
+							x.pict.title
+						),
+						React.createElement(
+							'a',
+							{ onClick: _this.delete.bind(_this, x._id) },
+							'Delete'
 						)
 					);
 				})
 			);
+		},
+
+		render: function render() {
+			if (this.state.picts.length > 0) {
+				return this.generateContent();
+			} else {
+				console.log('Nothing.');
+				return React.createElement(
+					'div',
+					null,
+					'Nix.'
+				);
+			}
 		}
 	});
 
 	module.exports = MyPicts;
 
 /***/ },
-/* 231 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25898,32 +25264,22 @@
 		},
 
 		render: function render() {
-			console.log('State, flag: ', this.state, this.state.picts.length > 0);
-
 			return React.createElement(
 				'div',
-				{ className: 'uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 gallery', 'data-uk-grid': '{gutter: 20}' },
+				{ className: 'gallery' },
 				[].concat(_toConsumableArray(this.state.picts)).map(function (x, i) {
 					return React.createElement(
-						'div',
+						'figure',
 						{ key: i },
 						React.createElement(
-							'div',
-							{ className: 'uk-panel uk-panel-box' },
-							React.createElement(
-								'div',
-								{ className: 'uk-panel-teaser' },
-								React.createElement(
-									_reactImageloader2.default,
-									{ src: x.pict.url },
-									React.createElement('img', { src: 'images/placeholder.svg' })
-								)
-							),
-							React.createElement(
-								'p',
-								null,
-								x.pict.title
-							)
+							_reactImageloader2.default,
+							{ src: x.pict.url },
+							React.createElement('img', { src: 'images/placeholder.png' })
+						),
+						React.createElement(
+							'figcaption',
+							null,
+							x.pict.title
 						)
 					);
 				})
@@ -25934,7 +25290,7 @@
 	module.exports = AllPicts;
 
 /***/ },
-/* 232 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25967,7 +25323,7 @@
 	module.exports = Example;
 
 /***/ },
-/* 233 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26000,7 +25356,7 @@
 	module.exports = Example2;
 
 /***/ },
-/* 234 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

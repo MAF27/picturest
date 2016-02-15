@@ -25,21 +25,16 @@ var AllPicts = React.createClass({
 		this.serverRequest.abort();
 	},
 	render: function() {
-		console.log('State, flag: ', this.state, this.state.picts.length >0);
-
 				return (
-					<div className='uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 gallery' data-uk-grid='{gutter: 20}' >
+					<div className='gallery'>
 
-						{[...this.state.picts].map((x, i) => <div key={i}>
-							<div className='uk-panel uk-panel-box'>
-								<div className='uk-panel-teaser'>
+						{[...this.state.picts].map((x, i) =>
+							<figure key={i}>
 									<ImageLoader src={x.pict.url}>
-										<img src='images/placeholder.svg'/>
+										<img src='images/placeholder.png'/>
 									</ImageLoader>
-									</div>
-								<p>{x.pict.title}</p>
-							</div>
-						</div>)}
+								<figcaption>{x.pict.title}</figcaption>
+						</figure>)}
 
 					</div >
 				);

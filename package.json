@@ -20,6 +20,7 @@
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "react-imageloader": "^2.1.0",
+    "react-layout-pack": "^0.2.1",
     "react-masonry-component": "^3.0.0",
     "react-router": "^2.0.0-rc5"
   },
