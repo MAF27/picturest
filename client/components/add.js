@@ -3,7 +3,10 @@ var React = require('react');
 // var PropTypes = React.PropTypes;
 
 var AddForm = React.createClass({
-
+	// ask for `router` from context
+	contextTypes: {
+		router: React.PropTypes.object
+	},
 	onChange(e) {
 		this.setState({[e.target.name]: e.target.value});
 	},
@@ -17,7 +20,8 @@ var AddForm = React.createClass({
 			type: 'POST',
 			data: this.state,
 			success: function(data) {
-				this.setState({data: data});
+				console.log('Add result: ' + data);
+				this.context.router.push('/mypicts');
 			}.bind(this),
 			error: function(xhr, status, err) {
 				console.error('Error saving pict', status, err.toString());
@@ -25,7 +29,8 @@ var AddForm = React.createClass({
 		});
 
 		// Redirect to My Picst
-		window.location = '/mypicts';
+		// window.location = '/mypicts';
+		this.context.router.push('/mypicts');
 	},
 	render: function() {
 		return (

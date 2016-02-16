@@ -25041,6 +25041,11 @@
 
 	var AddForm = React.createClass({
 		displayName: 'AddForm',
+
+		// ask for `router` from context
+		contextTypes: {
+			router: React.PropTypes.object
+		},
 		onChange: function onChange(e) {
 			this.setState(_defineProperty({}, e.target.name, e.target.value));
 		},
@@ -25054,7 +25059,8 @@
 				type: 'POST',
 				data: this.state,
 				success: function (data) {
-					this.setState({ data: data });
+					console.log('Add result: ' + data);
+					this.context.router.push('/mypicts');
 				}.bind(this),
 				error: function (xhr, status, err) {
 					console.error('Error saving pict', status, err.toString());
@@ -25062,7 +25068,8 @@
 			});
 
 			// Redirect to My Picst
-			window.location = '/mypicts';
+			// window.location = '/mypicts';
+			this.context.router.push('/mypicts');
 		},
 
 		render: function render() {
@@ -25128,6 +25135,11 @@
 
 	var MyPicts = React.createClass({
 		displayName: 'MyPicts',
+
+		// ask for `router` from context
+		contextTypes: {
+			router: React.PropTypes.object
+		},
 		getInitialState: function getInitialState() {
 			return { picts: [] };
 		},
@@ -25155,26 +25167,32 @@
 		delete: function _delete(id) {
 			// Find index -> TODO: to util
 			var newpicts = this.state.picts;
+			var index = -1;
+			console.log('Deleting ' + id);
 			for (var i = 0; i < newpicts.length; i++) {
 				if (newpicts[i]._id === id) {
-					newpicts.splice(i, 1);
-					console.log('Found on pos ' + i, newpicts);
+					index = i;
 				}
+			}
+
+			if (index > 0) {
+				// Delete pict in React component
+				newpicts.splice(index, 1);
 				this.setState({ picts: newpicts });
+				// Delete pict in database
 				$.ajax({
 					url: '/api/pict',
 					dataType: 'json',
 					type: 'DELETE',
 					data: { _id: id },
 					success: function (data) {
-						this.setState({ picts: data });
+						console.log('Successfully deleted in DB', data);
 					}.bind(this),
 					error: function (xhr, status, err) {
-						console.error('Error getting picts: ', status, err.toString());
+						console.error('Error deleting pict: ', status, err.toString());
 					}.bind(this)
 				});
 			}
-			return null;
 		},
 		generateContent: function generateContent() {
 			var _this = this;
