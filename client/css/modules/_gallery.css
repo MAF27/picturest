@@ -1,24 +1,74 @@
 .gallery {
-	/*div {
-		margin: 5px;
+	column-width: 230px;
+	column-gap: 15px;
+  width: 90%;
+	max-width: 1100px;
+	margin: 50px auto;
+
+  figure {
+  	background: rgb(242, 242, 242);
+  	border: 2px solid #fcfcfc;
+  	box-shadow: rgba(0, 0, 0, 0.3) 0 2px 4px 0;
+  	margin: 0 2px 15px;
+  	padding: 15px;
+  	padding-bottom: 10px;
+  	transition: opacity .4s ease-in-out;
+    display: inline-block;
+    column-break-inside: avoid;
+		font-size: .9rem;
+		color: #333;
 
 		img {
-			box-shadow: rgba(0, 0, 0, 0.3) 0 2px 4px 0;
+	  	width: 100%; height: auto;
+	  	border-bottom: 1px solid #ccc;
+	  	padding-bottom: 15px;
+	  	margin-bottom: 5px;
+	  }
+
+  	figcaption {
+			font-size: 1rem;
+			font-weight: 400;
+    	line-height: 1.5;
+  	}
+
+		a {
+			font-size: .9rem;
+			color: #555;
 		}
-	}*/
 
-	.uk-panel-box {
-		box-shadow: rgba(0, 0, 0, 0.3) 0 2px 4px 0;
-		margin-bottom: 10px;
+		em {
+			color: #333;
+		}
+
+		&:hover {
+			background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.15));
+		}
 	}
 
-	a, p {
-		margin: 0;
-		padding: 0;
-	}
+  @media screen and (max-width: 750px) {
+    .gallery { column-gap: 0px; }
+    .gallery figure { width: 100%; }
+  }
+}
 
+#mypicts {
 	a {
-		color: red;
+		color: #FC1B41;
 	}
+	:hover {
+		a {
+			font-size: 1rem;
+			text-decoration: underline;
+		}
+	}
+}
 
+#allpicts {
+	:hover {
+		a {
+			color: #09F7D5;
+			text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
+			text-decoration: underline;
+		}
+	}
 }

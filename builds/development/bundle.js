@@ -25200,7 +25200,7 @@
 				),
 				React.createElement(
 					'div',
-					{ className: 'gallery' },
+					{ id: 'mypicts', className: 'gallery' },
 					[].concat(_toConsumableArray(this.state.picts)).map(function (x, i) {
 						return React.createElement(
 							'figure',
@@ -25311,7 +25311,7 @@
 				React.createElement(Title, { filter: this.state.filterName }),
 				React.createElement(
 					'div',
-					{ className: 'gallery' },
+					{ id: 'allpicts', className: 'gallery' },
 					[].concat(_toConsumableArray(this.state.picts)).map(function (x, i) {
 						return !_this.state.filterId || x.user.userId === _this.state.filterId ? React.createElement(
 							'figure',
@@ -25325,6 +25325,11 @@
 								'figcaption',
 								null,
 								x.pict.title
+							),
+							React.createElement(
+								'em',
+								null,
+								'by '
 							),
 							React.createElement(
 								'a',

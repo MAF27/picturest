@@ -45,7 +45,7 @@ var AllPicts = React.createClass({
 				return (
 					<div>
 					<Title filter={this.state.filterName} />
-					<div className='gallery'>
+					<div id='allpicts' className='gallery'>
 						{[...this.state.picts].map((x, i) =>
 							(!this.state.filterId || x.user.userId === this.state.filterId) ?
 								<figure key={i}>
@@ -53,7 +53,7 @@ var AllPicts = React.createClass({
 											<img src='images/placeholder.png'/>
 										</ImageLoader>
 									<figcaption>{x.pict.title}</figcaption>
-									<a onClick={this.filterPicts.bind(this, x.user)} className='user'>{x.user.twitterName}</a>
+									<em>by </em><a onClick={this.filterPicts.bind(this, x.user)} className='user'>{x.user.twitterName}</a>
 								</figure>
 								:
 								<span key={i}></span>

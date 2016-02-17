@@ -59,7 +59,7 @@ var MyPicts = React.createClass({
 		return (
 			<div>
 			<h2>My Pics</h2>
-			<div className='gallery'>
+			<div id='mypicts' className='gallery'>
 
 				{[...this.state.picts].map((x, i) =>
 					<figure key={i}>

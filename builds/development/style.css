@@ -70,24 +70,6 @@ section.signup div {
     margin: 5px 0;
 }
 section.profile {}
-/*div {
-		margin: 5px;
-
-		img {
-			box-shadow: rgba(0, 0, 0, 0.3) 0 2px 4px 0;
-		}
-	}*/
-.gallery .uk-panel-box {
-    box-shadow: rgba(0, 0, 0, 0.3) 0 2px 4px 0;
-    margin-bottom: 10px;
-}
-.gallery a, .gallery p {
-    margin: 0;
-    padding: 0;
-}
-.gallery a {
-    color: red;
-}
 .gallery {
     -webkit-column-width: 230px;
        -moz-column-width: 230px;
@@ -110,6 +92,8 @@ section.profile {}
     transition: opacity .4s ease-in-out;
     display: inline-block;
     column-break-inside: avoid;
+    font-size: .9rem;
+    color: #333;
 }
 .gallery figure img {
     width: 100%;
@@ -118,25 +102,21 @@ section.profile {}
     padding-bottom: 15px;
     margin-bottom: 5px;
 }
-.gallery figure .user {
-    display: none;
+.gallery figure figcaption {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+.gallery figure a {
+    font-size: .9rem;
+    color: #555;
+}
+.gallery figure em {
+    color: #333;
 }
 .gallery figure:hover {
-    background: -webkit-linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5));
-    background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5));
-}
-.gallery figure:hover .user {
-    display: inline;
-}
-.gallery figure:hover a {
-    font-size: .9rem;
-    color: rgb(182, 238, 21);
-    text-shadow: 2px 2px rgba(0, 0, 0, 0.3);
-}
-.gallery figure figcaption {
-    font-size: .9rem;
-    color: #444;
-    line-height: 1.5;
+    background: -webkit-linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.15));
+    background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.15));
 }
 @media screen and (max-width: 750px) {
     .gallery .gallery {
@@ -147,4 +127,16 @@ section.profile {}
     .gallery .gallery figure {
         width: 100%;
     }
+}
+#mypicts a {
+    color: #FC1B41;
+}
+#mypicts :hover a {
+    font-size: 1rem;
+    text-decoration: underline;
+}
+#allpicts :hover a {
+    color: #09F7D5;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
+    text-decoration: underline;
 }
