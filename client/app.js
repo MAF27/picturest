@@ -20,6 +20,7 @@ var reactContainer = document.getElementById('react-container');
 
 if (reactContainer) {
 	ReactDOM.render((
+		<div>
 		<Router history={browserHistory}>
 			<Route path='/' component={Main}>
 				<IndexRoute component={AllPicts} />
@@ -31,5 +32,6 @@ if (reactContainer) {
 				<Route path='*' component={Whoops404} />
 			</Route>
 		</Router>
+		</div>
 	), document.getElementById('react-container'));
 }

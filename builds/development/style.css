@@ -118,6 +118,21 @@ section.profile {}
     padding-bottom: 15px;
     margin-bottom: 5px;
 }
+.gallery figure .user {
+    display: none;
+}
+.gallery figure:hover {
+    background: -webkit-linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5));
+    background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5));
+}
+.gallery figure:hover .user {
+    display: inline;
+}
+.gallery figure:hover a {
+    font-size: .9rem;
+    color: rgb(182, 238, 21);
+    text-shadow: 2px 2px rgba(0, 0, 0, 0.3);
+}
 .gallery figure figcaption {
     font-size: .9rem;
     color: #444;
