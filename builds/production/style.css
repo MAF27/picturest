@@ -1,0 +1,142 @@
+@import url('http://fonts.googleapis.com/css?family=Raleway:200,400,700,300,100');
+@include border-box-sizing;
+html {
+    height: 100%;
+    width: 100%;
+    background-color: lightgrey;
+}
+body {
+    font: 200 1em/1.5em 'Raleway','Helvetica Neue',Helvetica,Arial,sans-serif;
+    background: #FFFFFF;
+    color: #000000;
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+    min-height: 100%;
+    overflow: scroll;
+    font-weight: 400;
+    font-family: 'Raleway','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+strong {
+    font-weight: 600;
+}
+.notification {
+    position: fixed;
+    z-index: 100;
+    width: 80%;
+    left: 10%;
+    top: 35%;
+    border: 1px solid #DEDEDE;
+    background-color: rgba(249, 249, 249, 0.95);
+    box-shadow: rgba(0, 0, 0, 0.3) 0 1px 2px 0;
+    border-radius: 4px;
+    padding: 7px;
+    text-align: center;
+}
+.notification button {
+    margin-top: 15px;
+}
+#hbs_content {
+    margin-top: 15px;
+    margin-left: 15px;
+}
+#main {
+    height: 100%;
+    width: 100%;
+    max-width: 1024px;
+    margin-top: 15px;
+    /* iPad Landscape */
+}
+#react-container {
+    min-height: 100px;
+    margin-top: 15px;
+}
+.hide {
+    display: none;
+}
+.grid-item {
+    width: 220px;
+    margin-bottom: 10px;
+}
+
+header {
+    max-width: 1024px;
+    position: relative;
+}
+#nav {}
+
+section.login {}
+section.signup div {
+    margin: 5px 0;
+}
+section.profile {}
+.gallery {
+    -webkit-column-width: 230px;
+       -moz-column-width: 230px;
+            column-width: 230px;
+    -webkit-column-gap: 15px;
+       -moz-column-gap: 15px;
+            column-gap: 15px;
+    width: 90%;
+    max-width: 1100px;
+    margin: 50px auto;
+}
+.gallery figure {
+    background: rgb(242, 242, 242);
+    border: 2px solid #fcfcfc;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 2px 4px 0;
+    margin: 0 2px 15px;
+    padding: 15px;
+    padding-bottom: 10px;
+    -webkit-transition: opacity .4s ease-in-out;
+    transition: opacity .4s ease-in-out;
+    display: inline-block;
+    column-break-inside: avoid;
+    font-size: .9rem;
+    color: #333;
+}
+.gallery figure img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 15px;
+    margin-bottom: 5px;
+}
+.gallery figure figcaption {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+.gallery figure a {
+    font-size: .9rem;
+    color: #555;
+}
+.gallery figure em {
+    color: #333;
+}
+.gallery figure:hover {
+    background: -webkit-linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.15));
+    background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.15));
+}
+@media screen and (max-width: 750px) {
+    .gallery .gallery {
+        -webkit-column-gap: 0px;
+           -moz-column-gap: 0px;
+                column-gap: 0px;
+    }
+    .gallery .gallery figure {
+        width: 100%;
+    }
+}
+#mypicts a {
+    color: #FC1B41;
+}
+#mypicts :hover a {
+    font-size: 1rem;
+    text-decoration: underline;
+}
+#allpicts :hover a {
+    color: #09F7D5;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
+    text-decoration: underline;
+}
