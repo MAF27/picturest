@@ -39,10 +39,6 @@
 		em {
 			color: #333;
 		}
-
-		&:hover {
-			background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.15));
-		}
 	}
 
   @media screen and (max-width: 750px) {
@@ -52,9 +48,15 @@
 }
 
 #mypicts {
+
+	figure:hover {
+		background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.15));
+	}
+
 	a {
 		color: #FC1B41;
 	}
+
 	:hover {
 		a {
 			font-size: 1rem;
@@ -64,10 +66,14 @@
 }
 
 #allpicts {
+	figure:hover {
+		background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5));
+	}
+
 	:hover {
 		a {
+			font-size: 1rem;
 			color: #09F7D5;
-			text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
 			text-decoration: underline;
 		}
 	}

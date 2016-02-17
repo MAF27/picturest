@@ -114,10 +114,6 @@ section.profile {}
 .gallery figure em {
     color: #333;
 }
-.gallery figure:hover {
-    background: -webkit-linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.15));
-    background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.15));
-}
 @media screen and (max-width: 750px) {
     .gallery .gallery {
         -webkit-column-gap: 0px;
@@ -128,6 +124,10 @@ section.profile {}
         width: 100%;
     }
 }
+#mypicts figure:hover {
+    background: -webkit-linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.15));
+    background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.15));
+}
 #mypicts a {
     color: #FC1B41;
 }
@@ -135,8 +135,12 @@ section.profile {}
     font-size: 1rem;
     text-decoration: underline;
 }
+#allpicts figure:hover {
+    background: -webkit-linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5));
+    background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5));
+}
 #allpicts :hover a {
+    font-size: 1rem;
     color: #09F7D5;
-    text-shadow: 1px 1px rgba(0, 0, 0, 0.3);
     text-decoration: underline;
 }

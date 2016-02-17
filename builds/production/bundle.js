@@ -25105,7 +25105,7 @@
 					React.createElement(
 						'div',
 						{ className: 'uk-form-controls' },
-						React.createElement('input', { type: 'text', name: 'url', placeholder: 'URL', onChange: this.onChange, className: 'uk-form-width-large' })
+						React.createElement('input', { type: 'text', name: 'url', placeholder: 'URL', onChange: this.onChange, className: 'uk-width-1-1' })
 					)
 				),
 				React.createElement('input', { className: 'uk-button', type: 'submit', value: 'Submit' })
@@ -25230,7 +25230,7 @@
 			if (this.state.picts.length > 0) {
 				return this.generateContent();
 			} else {
-				return React.createElement('i', { className: 'uk-icon-spinner' });
+				return React.createElement('i', { className: 'uk-icon-spinner uk-icon-spin' });
 			}
 		}
 	});

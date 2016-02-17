@@ -44,7 +44,7 @@ var AddForm = React.createClass({
         <div className="uk-form-row">
             <label className="uk-form-label">Picture Address</label>
             <div className="uk-form-controls">
-                <input type="text" name="url" placeholder="URL" onChange={this.onChange} className="uk-form-width-large"/>
+                <input type="text" name="url" placeholder="URL" onChange={this.onChange} className="uk-width-1-1"/>
             </div>
         </div>
 				<input className="uk-button" type="submit" value="Submit" />

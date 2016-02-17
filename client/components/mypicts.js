@@ -79,7 +79,7 @@ var MyPicts = React.createClass({
 			return (this.generateContent());
 		} else {
 			return (
-				<i className="uk-icon-spinner"></i>
+				<i className="uk-icon-spinner uk-icon-spin"></i>
 			);
 		}
 	}
