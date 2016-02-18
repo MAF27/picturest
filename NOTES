@@ -1,7 +1,8 @@
 TODO
+- Refresh on add does not always show new pict
 OK - Refresh on add pict
 OK - Refresh on delete pict (IE)
-- Show user display name on hover, filter on click
-- Titles: All Pics, 'user' Pics, My Pics
+OK - Show user display name on hover, filter on click
+OK - Titles: All Pics, 'user' Pics, My Pics
 
 - Ugly/Non-Ajay: Routing: Server/HBS/Express routing to / for every react router change >> via LINK

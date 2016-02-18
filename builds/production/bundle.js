@@ -25070,10 +25070,6 @@
 					console.error('Error saving pict', status, err.toString());
 				}.bind(this)
 			});
-
-			// Redirect to My Picst
-			// window.location = '/mypicts';
-			this.context.router.push('/mypicts');
 		},
 
 		render: function render() {
@@ -25170,7 +25166,7 @@
 				}
 			}
 
-			if (index > 0) {
+			if (index >= 0) {
 				// Delete pict in React component
 				newpicts.splice(index, 1);
 				this.setState({ picts: newpicts });
