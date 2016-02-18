@@ -5,4 +5,4 @@ OK - Refresh on delete pict (IE)
 OK - Show user display name on hover, filter on click
 OK - Titles: All Pics, 'user' Pics, My Pics
 
-- Ugly/Non-Ajay: Routing: Server/HBS/Express routing to / for every react router change >> via LINK
+- Ugly/Non-Ajay: Routing: Server/HBS/Express routing to / for every react router change >> via LINK -> no solution at this point
