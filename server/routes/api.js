@@ -3,25 +3,6 @@ var router = express.Router();
 
 var Pict = require('../models/pict');
 
-// All routes relative to host/api
-router.get('/user', function(req, res) {
-	// If we're logged in
-	if (req.user) {
-		// Return full user object, but without password hash
-		var user = {
-			_id: req.user._id,
-			firstName: req.user.firstName,
-			lastName: req.user.lastName,
-			username: req.user.username
-		};
-		res.status(200)
-			.json(user);
-	} else {
-		res.status(200)
-			.json(null);
-	}
-});
-
 router.post('/pict', function(req, res) {
 	var newPict = new Pict({pict: req.body, user: req.user});
 

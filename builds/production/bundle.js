@@ -55,14 +55,10 @@
 	var IndexRoute = __webpack_require__(159).IndexRoute;
 
 	var Main = __webpack_require__(217);
-	var Gallery = __webpack_require__(219);
-	var Gallery2 = __webpack_require__(221);
-	var AddForm = __webpack_require__(222);
-	var MyPicts = __webpack_require__(223);
-	var AllPicts = __webpack_require__(224);
-	var Example = __webpack_require__(225);
-	var Example2 = __webpack_require__(226);
-	var Whoops404 = __webpack_require__(227);
+	var AddForm = __webpack_require__(219);
+	var MyPicts = __webpack_require__(220);
+	var AllPicts = __webpack_require__(222);
+	var Whoops404 = __webpack_require__(223);
 
 	var reactContainer = document.getElementById('react-container');
 
@@ -77,9 +73,6 @@
 					Route,
 					{ path: '/', component: Main },
 					React.createElement(IndexRoute, { component: AllPicts }),
-					React.createElement(Route, { path: 'example2', component: Example2 }),
-					React.createElement(Route, { path: 'gallery', component: Gallery }),
-					React.createElement(Route, { path: 'gallery2', component: Gallery2 }),
 					React.createElement(Route, { path: 'add', component: AddForm }),
 					React.createElement(Route, { path: 'mypicts', component: MyPicts }),
 					React.createElement(Route, { path: '*', component: Whoops404 })
@@ -24700,103 +24693,204 @@
 
 	'use strict';
 
-	var _reactImageloader = __webpack_require__(220);
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	/* global $ */
+	var React = __webpack_require__(1);
+	// var PropTypes = React.PropTypes;
+
+	var AddForm = React.createClass({
+		displayName: 'AddForm',
+
+		// ask for `router` from context
+		contextTypes: {
+			router: React.PropTypes.object
+		},
+		onChange: function onChange(e) {
+			this.setState(_defineProperty({}, e.target.name, e.target.value));
+		},
+		onSubmit: function onSubmit(e) {
+			e.preventDefault();
+
+			// Save pict
+			$.ajax({
+				url: '/api/pict',
+				dataType: 'json',
+				type: 'POST',
+				data: this.state,
+				success: function (data) {
+					console.log('Add result: ' + data);
+					this.context.router.push('/mypicts');
+				}.bind(this),
+				error: function (xhr, status, err) {
+					console.error('Error saving pict', status, err.toString());
+				}.bind(this)
+			});
+		},
+
+		render: function render() {
+			return React.createElement(
+				'form',
+				{ action: '', className: 'uk-form uk-form-horizontal', onSubmit: this.onSubmit },
+				React.createElement(
+					'div',
+					{ className: 'uk-form-row' },
+					React.createElement(
+						'label',
+						{ className: 'uk-form-label' },
+						'Title'
+					),
+					React.createElement(
+						'div',
+						{ className: 'uk-form-controls' },
+						React.createElement('input', { type: 'text', name: 'title', placeholder: 'Title', onChange: this.onChange })
+					)
+				),
+				React.createElement(
+					'div',
+					{ className: 'uk-form-row' },
+					React.createElement(
+						'label',
+						{ className: 'uk-form-label' },
+						'Picture Address'
+					),
+					React.createElement(
+						'div',
+						{ className: 'uk-form-controls' },
+						React.createElement('input', { type: 'text', name: 'url', placeholder: 'URL', onChange: this.onChange, className: 'uk-width-1-1' })
+					)
+				),
+				React.createElement('input', { className: 'uk-button mtop', type: 'submit', value: 'Submit' })
+			);
+		}
+
+	});
+
+	module.exports = AddForm;
+
+/***/ },
+/* 220 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _reactImageloader = __webpack_require__(221);
 
 	var _reactImageloader2 = _interopRequireDefault(_reactImageloader);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	/* global UIkit */
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+	/* global $ */
 	var React = __webpack_require__(1);
 
-	// var g = [
-	// 	{
-	// 		url: 'http://lorempixel.com/400/200',
-	// 		title: 'Lorem'
-	// 	}, {
-	// 		url: 'http://images.northrup.org/picture/xl/chipmunk/picture-of-a-baby-chipmunk.jpg',
-	// 		title: 'Chipper'
-	// 	}, {
-	// 		url: 'http://lorempixel.com/400/200',
-	// 		title: 'Lorem'
-	// 	}, {
-	// 		url: 'https://media.allyouneedfresh.de/productpictures/ea/large/21228/12240/1/Exquisa-Quark-Creme-Natur-02-Fett-500-g.jpg',
-	// 		title: 'Quark'
-	// 	}, {
-	// 		url: 'http://lorempixel.com/400/200',
-	// 		title: 'Lorem'
-	// 	}, {
-	// 		url: 'http://lorempixel.com/400/200',
-	// 		title: 'Lorem'
-	// 	}, {
-	// 		url: 'http://media05.myheimat.de/2010/03/16/979745_web.jpg?1268756366',
-	// 		title: 'Frecher Hase'
-	// 	}, {
-	// 		url: 'http://lorempixel.com/400/200',
-	// 		title: 'Lorem'
-	// 	}, {
-	// 		url: 'http://lorempixel.com/400/200',
-	// 		title: 'Lorem'
-	// 	}, {
-	// 		url: 'http://lorempixel.com/400/200',
-	// 		title: 'Lorem'
-	// 	}
-	// ];
+	var MyPicts = React.createClass({
+		displayName: 'MyPicts',
 
-	var g = [{ '_id': '56bf62de862cc1b20f37dca5', '__v': 0, 'created': '2016-02-13T17:07:42.382Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Chipper', 'url': 'http://images.northrup.org/picture/xl/chipmunk/picture-of-a-baby-chipmunk.jpg' } }, { '_id': '56bf78eda7927afb10abc514', '__v': 0, 'created': '2016-02-13T18:41:49.377Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Singfrosch', 'url': 'http://thumb1.shutterstock.com/display_pic_with_logo/1256209/195025850/stock-vector-frog-plays-the-violin-vector-illustration-eps-195025850.jpg' } }, { '_id': '56bf7969a7927afb10abc515', '__v': 0, 'created': '2016-02-13T18:43:53.498Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Hase', 'url': 'http://media05.myheimat.de/2010/03/16/979745_web.jpg?1268756366' } }, { '_id': '56bf99d0faa32ff7113ab332', '__v': 0, 'created': '2016-02-13T21:02:08.513Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Quark', 'url': 'https://media.allyouneedfresh.de/productpictures/ea/large/21228/12240/1/Exquisa-Quark-Creme-Natur-02-Fett-500-g.jpg' } }, { '_id': '56bf9c5cfaa32ff7113ab333', '__v': 0, 'created': '2016-02-13T21:13:00.697Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Throwaway', 'url': 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Skimmed_milk_quark_on_spoon.jpg' } }, { '_id': '56bf9c98faa32ff7113ab334', '__v': 0, 'created': '2016-02-13T21:14:00.751Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Nochwas', 'url': 'http://4.bp.blogspot.com/-TbF1zIXUeg8/T4UH-qzDr8I/AAAAAAAAEQc/-WbFkseFuFQ/s1600/Quark-ferengi-9330446-581-740.jpg' } }, { '_id': '56bf9cc9faa32ff7113ab335', '__v': 0, 'created': '2016-02-13T21:14:49.837Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Spacer', 'url': 'http://image.architonic.com/img_pro2-1/119/3101/1-6-quark-30-8e-wood-photo-credit-lavatori-b.jpg' } }, { '_id': '56c0797ec95bb7be18b59b9d', '__v': 0, 'created': '2016-02-14T12:56:30.955Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Rumbl', 'url': 'quargel' } }];
+		// ask for `router` from context
+		contextTypes: {
+			router: React.PropTypes.object
+		},
+		getInitialState: function getInitialState() {
+			return { picts: [] };
+		},
+		componentWillMount: function componentWillMount() {
+			this.serverRequest = $.ajax({
+				url: '/api/mypicts',
+				dataType: 'json',
+				type: 'GET',
+				success: function (data) {
+					this.setState({ picts: data });
+				}.bind(this),
+				error: function (xhr, status, err) {
+					console.error('Error getting picts: ', status, err.toString());
+				}.bind(this)
+			});
+		},
+		componentWillUnmount: function componentWillUnmount() {
+			this.serverRequest.abort();
+		},
+		delete: function _delete(id) {
+			// Find index -> TODO: to util
+			var newpicts = this.state.picts;
+			var index = -1;
+			console.log('Deleting ' + id);
+			for (var i = 0; i < newpicts.length; i++) {
+				if (newpicts[i]._id === id) {
+					index = i;
+				}
+			}
 
-	var Gallery = React.createClass({
-		displayName: 'Gallery',
+			if (index >= 0) {
+				// Delete pict in React component
+				newpicts.splice(index, 1);
+				this.setState({ picts: newpicts });
+				// Delete pict in database
+				$.ajax({
+					url: '/api/pict',
+					dataType: 'json',
+					type: 'DELETE',
+					data: { _id: id },
+					success: function () {}.bind(this),
+					error: function (xhr, status, err) {
+						console.error('Error deleting pict: ', status, err.toString());
+					}.bind(this)
+				});
+			}
+		},
 		generateContent: function generateContent() {
+			var _this = this;
+
 			return React.createElement(
 				'div',
-				{ className: 'uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 gallery', 'data-uk-grid': '{gutter: 20}' },
-				[].concat(g).map(function (x, i) {
-					return React.createElement(
-						'div',
-						{ key: i },
-						React.createElement(
-							'div',
-							{ className: 'uk-panel uk-panel-box' },
+				null,
+				React.createElement(
+					'h2',
+					null,
+					'My Pics'
+				),
+				React.createElement(
+					'div',
+					{ id: 'mypicts', className: 'gallery' },
+					[].concat(_toConsumableArray(this.state.picts)).map(function (x, i) {
+						return React.createElement(
+							'figure',
+							{ key: i },
 							React.createElement(
-								'div',
-								{ className: 'uk-panel-teaser' },
-								React.createElement(
-									_reactImageloader2.default,
-									{ src: x.pict.url },
-									React.createElement('img', { src: 'images/placeholder.png' })
-								)
+								_reactImageloader2.default,
+								{ src: x.pict.url },
+								React.createElement('img', { src: 'images/placeholder.png' })
 							),
 							React.createElement(
-								'p',
+								'figcaption',
 								null,
 								x.pict.title
 							),
 							React.createElement(
 								'a',
-								null,
+								{ onClick: _this.delete.bind(_this, x._id) },
 								'Delete'
 							)
-						)
-					);
-				})
+						);
+					})
+				)
 			);
 		},
 
 		render: function render() {
-			var c = this.generateContent();
-			// Re-Init Dynamic Grid, particularly for IE
-			UIkit.grid('.gallery', {});
-			return c;
+			if (this.state.picts.length > 0) {
+				return this.generateContent();
+			} else {
+				return React.createElement('i', { className: 'uk-icon-spinner uk-icon-spin' });
+			}
 		}
 	});
 
-	module.exports = Gallery;
-
-	// <div id='gallery' className='uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4 tm-grid-colors tm-grid-heights' data-uk-grid >
+	module.exports = MyPicts;
 
 /***/ },
-/* 220 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24985,261 +25079,12 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 221 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _reactImageloader = __webpack_require__(220);
-
-	var _reactImageloader2 = _interopRequireDefault(_reactImageloader);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	/* global $ */
-	var React = __webpack_require__(1);
-
-	var g = [{ '_id': '56bf62de862cc1b20f37dca5', '__v': 0, 'created': '2016-02-13T17:07:42.382Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Chipper', 'url': 'http://images.northrup.org/picture/xl/chipmunk/picture-of-a-baby-chipmunk.jpg' } }, { '_id': '56bf78eda7927afb10abc514', '__v': 0, 'created': '2016-02-13T18:41:49.377Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Singfrosch', 'url': 'http://thumb1.shutterstock.com/display_pic_with_logo/1256209/195025850/stock-vector-frog-plays-the-violin-vector-illustration-eps-195025850.jpg' } }, { '_id': '56bf7969a7927afb10abc515', '__v': 0, 'created': '2016-02-13T18:43:53.498Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Hase', 'url': 'http://media05.myheimat.de/2010/03/16/979745_web.jpg?1268756366' } }, { '_id': '56bf99d0faa32ff7113ab332', '__v': 0, 'created': '2016-02-13T21:02:08.513Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Quark', 'url': 'https://media.allyouneedfresh.de/productpictures/ea/large/21228/12240/1/Exquisa-Quark-Creme-Natur-02-Fett-500-g.jpg' } }, { '_id': '56bf9c5cfaa32ff7113ab333', '__v': 0, 'created': '2016-02-13T21:13:00.697Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Throwaway', 'url': 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Skimmed_milk_quark_on_spoon.jpg' } }, { '_id': '56bf9c98faa32ff7113ab334', '__v': 0, 'created': '2016-02-13T21:14:00.751Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Nochwas', 'url': 'http://4.bp.blogspot.com/-TbF1zIXUeg8/T4UH-qzDr8I/AAAAAAAAEQc/-WbFkseFuFQ/s1600/Quark-ferengi-9330446-581-740.jpg' } }, { '_id': '56bf9cc9faa32ff7113ab335', '__v': 0, 'created': '2016-02-13T21:14:49.837Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Spacer', 'url': 'http://image.architonic.com/img_pro2-1/119/3101/1-6-quark-30-8e-wood-photo-credit-lavatori-b.jpg' } }, { '_id': '56c0797ec95bb7be18b59b9d', '__v': 0, 'created': '2016-02-14T12:56:30.955Z', 'user': { 'userId': '3399907588', 'userName': 'MAF27Test', 'twitterName': 'MAF Test' }, 'pict': { 'title': 'Rumbl', 'url': 'quargel' } }];
-
-	var Gallery2 = React.createClass({
-		displayName: 'Gallery2',
-		componentWillMount: function componentWillMount() {},
-
-		render: function render() {
-			return React.createElement(
-				'div',
-				{ className: 'gallery' },
-				[].concat(g).map(function (x, i) {
-					return React.createElement(
-						'figure',
-						{ key: i },
-						React.createElement(
-							_reactImageloader2.default,
-							{ src: x.pict.url },
-							React.createElement('img', { src: 'images/placeholder.png' })
-						),
-						React.createElement(
-							'figcaption',
-							null,
-							x.pict.title
-						)
-					);
-				})
-			);
-		}
-	});
-
-	module.exports = Gallery2;
-
-/***/ },
 /* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-	/* global $ */
-	var React = __webpack_require__(1);
-	// var PropTypes = React.PropTypes;
-
-	var AddForm = React.createClass({
-		displayName: 'AddForm',
-
-		// ask for `router` from context
-		contextTypes: {
-			router: React.PropTypes.object
-		},
-		onChange: function onChange(e) {
-			this.setState(_defineProperty({}, e.target.name, e.target.value));
-		},
-		onSubmit: function onSubmit(e) {
-			e.preventDefault();
-
-			// Save pict
-			$.ajax({
-				url: '/api/pict',
-				dataType: 'json',
-				type: 'POST',
-				data: this.state,
-				success: function (data) {
-					console.log('Add result: ' + data);
-					this.context.router.push('/mypicts');
-				}.bind(this),
-				error: function (xhr, status, err) {
-					console.error('Error saving pict', status, err.toString());
-				}.bind(this)
-			});
-		},
-
-		render: function render() {
-			return React.createElement(
-				'form',
-				{ action: '', className: 'uk-form uk-form-horizontal', onSubmit: this.onSubmit },
-				React.createElement(
-					'div',
-					{ className: 'uk-form-row' },
-					React.createElement(
-						'label',
-						{ className: 'uk-form-label' },
-						'Title'
-					),
-					React.createElement(
-						'div',
-						{ className: 'uk-form-controls' },
-						React.createElement('input', { type: 'text', name: 'title', placeholder: 'Title', onChange: this.onChange })
-					)
-				),
-				React.createElement(
-					'div',
-					{ className: 'uk-form-row' },
-					React.createElement(
-						'label',
-						{ className: 'uk-form-label' },
-						'Picture Address'
-					),
-					React.createElement(
-						'div',
-						{ className: 'uk-form-controls' },
-						React.createElement('input', { type: 'text', name: 'url', placeholder: 'URL', onChange: this.onChange, className: 'uk-width-1-1' })
-					)
-				),
-				React.createElement('input', { className: 'uk-button', type: 'submit', value: 'Submit' })
-			);
-		}
-
-	});
-
-	module.exports = AddForm;
-
-/***/ },
-/* 223 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _reactImageloader = __webpack_require__(220);
-
-	var _reactImageloader2 = _interopRequireDefault(_reactImageloader);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-	/* global $ */
-	var React = __webpack_require__(1);
-
-	var MyPicts = React.createClass({
-		displayName: 'MyPicts',
-
-		// ask for `router` from context
-		contextTypes: {
-			router: React.PropTypes.object
-		},
-		getInitialState: function getInitialState() {
-			return { picts: [] };
-		},
-		componentWillMount: function componentWillMount() {
-			this.serverRequest = $.ajax({
-				url: '/api/mypicts',
-				dataType: 'json',
-				type: 'GET',
-				success: function (data) {
-					this.setState({ picts: data });
-				}.bind(this),
-				error: function (xhr, status, err) {
-					console.error('Error getting picts: ', status, err.toString());
-				}.bind(this)
-			});
-		},
-		componentWillUnmount: function componentWillUnmount() {
-			this.serverRequest.abort();
-		},
-		delete: function _delete(id) {
-			// Find index -> TODO: to util
-			var newpicts = this.state.picts;
-			var index = -1;
-			console.log('Deleting ' + id);
-			for (var i = 0; i < newpicts.length; i++) {
-				if (newpicts[i]._id === id) {
-					index = i;
-				}
-			}
-
-			if (index >= 0) {
-				// Delete pict in React component
-				newpicts.splice(index, 1);
-				this.setState({ picts: newpicts });
-				// Delete pict in database
-				$.ajax({
-					url: '/api/pict',
-					dataType: 'json',
-					type: 'DELETE',
-					data: { _id: id },
-					success: function () {}.bind(this),
-					error: function (xhr, status, err) {
-						console.error('Error deleting pict: ', status, err.toString());
-					}.bind(this)
-				});
-			}
-		},
-		generateContent: function generateContent() {
-			var _this = this;
-
-			return React.createElement(
-				'div',
-				null,
-				React.createElement(
-					'h2',
-					null,
-					'My Pics'
-				),
-				React.createElement(
-					'div',
-					{ id: 'mypicts', className: 'gallery' },
-					[].concat(_toConsumableArray(this.state.picts)).map(function (x, i) {
-						return React.createElement(
-							'figure',
-							{ key: i },
-							React.createElement(
-								_reactImageloader2.default,
-								{ src: x.pict.url },
-								React.createElement('img', { src: 'images/placeholder.png' })
-							),
-							React.createElement(
-								'figcaption',
-								null,
-								x.pict.title
-							),
-							React.createElement(
-								'a',
-								{ onClick: _this.delete.bind(_this, x._id) },
-								'Delete'
-							)
-						);
-					})
-				)
-			);
-		},
-
-		render: function render() {
-			if (this.state.picts.length > 0) {
-				return this.generateContent();
-			} else {
-				return React.createElement('i', { className: 'uk-icon-spinner uk-icon-spin' });
-			}
-		}
-	});
-
-	module.exports = MyPicts;
-
-/***/ },
-/* 224 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _reactImageloader = __webpack_require__(220);
+	var _reactImageloader = __webpack_require__(221);
 
 	var _reactImageloader2 = _interopRequireDefault(_reactImageloader);
 
@@ -25342,73 +25187,7 @@
 	module.exports = AllPicts;
 
 /***/ },
-/* 225 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(1);
-	var Link = __webpack_require__(159).Link;
-
-	var Example = React.createClass({
-		displayName: 'Example',
-
-		render: function render() {
-			return React.createElement(
-				'div',
-				null,
-				React.createElement(
-					'p',
-					null,
-					'Hello from React'
-				),
-				React.createElement(
-					Link,
-					{ to: '/example2' },
-					'Go to example 2'
-				)
-			);
-		}
-
-	});
-
-	module.exports = Example;
-
-/***/ },
-/* 226 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(1);
-	var Link = __webpack_require__(159).Link;
-
-	var Example2 = React.createClass({
-		displayName: 'Example2',
-
-		render: function render() {
-			return React.createElement(
-				'div',
-				null,
-				React.createElement(
-					'p',
-					null,
-					'Hullo there from React'
-				),
-				React.createElement(
-					Link,
-					{ to: '/' },
-					'Go to Home'
-				)
-			);
-		}
-
-	});
-
-	module.exports = Example2;
-
-/***/ },
-/* 227 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

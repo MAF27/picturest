@@ -43,7 +43,7 @@ var AddForm = React.createClass({
                 <input type="text" name="url" placeholder="URL" onChange={this.onChange} className="uk-width-1-1"/>
             </div>
         </div>
-				<input className="uk-button" type="submit" value="Submit" />
+				<input className="uk-button mtop" type="submit" value="Submit" />
     </form>
 		);
 	}
